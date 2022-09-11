@@ -243,8 +243,7 @@ img.-on {
 				</div>
 			</div>
 		</div>
-
-
+  
 		<div class="modal fade" id="updateAdmin">
 			<div class="modal-dialog">
 				<div class="modal-content">
