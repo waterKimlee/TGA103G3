@@ -260,7 +260,7 @@ img.-on {
 						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 					</div>
 					<div class="modal-body">
-						<!-- 新增管理者 -->
+						<!-- 修改資料 -->
 						<form
 							action="<%=request.getContextPath()%>/administrator/admin.do"
 							method="post">
@@ -334,14 +334,14 @@ img.-on {
 						<td>${administratorVO.administratorPhone}</td>
 						<td>${administratorVO.administratorAccountBuildTime}</td>
 						<td>
-							<FORM METHOD="post"
-								ACTION="<%=request.getContextPath()%>/administrator/admin.do"
-								style="margin-bottom: 0px;">
-								<input type="submit" value="修改"> <input type="hidden"
+							
+								<input type="submit" value="修改" data-bs-toggle="modal"
+			data-bs-target="#updateAdmin"> <input type="hidden"
 									name="administratorId"
-									value="${administratorVO.administratorId}"> <input
-									type="hidden" name="action" value="getOne_For_Update">
-							</FORM>
+									value="${administratorVO.administratorId}"> 
+<!-- 									<input -->
+<!-- 									type="hidden" name="action" value="getOne_For_Update"> -->
+							
 						</td>
 						<td>
 							<FORM METHOD="post"
