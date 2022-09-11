@@ -8,6 +8,9 @@
  AdministratorService adminSvc = new AdministratorService();
  List<AdministratorVO> list = adminSvc.getAll();
  pageContext.setAttribute("list", list);
+ 
+ //把新增有錯誤的物件再傳回來，自動填入新增的輸入框
+ AdministratorVO administratorVO = (AdministratorVO) request.getAttribute("administratorVO");
  %>
 
 
@@ -182,21 +185,22 @@ img.-on {
 			<div class="col-1"></div>
 		</div>
 		<h1>管理者資料</h1>
-		<a id="addBtn" href="#" type="button" data-bs-toggle="modal"
+		<br>
+		<c:if test="${not empty errorMsgs}">
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+		<br> <a id="addBtn" href="#" type="button" data-bs-toggle="modal"
 			data-bs-target="#addAdmin">新增管理者</a>
 
 		<div class="modal fade" id="addAdmin">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<c:if test="${not empty errorMsgs}">
-							<ul>
-								<c:forEach var="message" items="${errorMsgs}">
-									<li style="color: red">${message}</li>
-								</c:forEach>
-							</ul>
-						</c:if>
-						<br>
+
 						<h3>新增管理者</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 					</div>
@@ -207,28 +211,33 @@ img.-on {
 							method="post">
 							<div class="form-group">
 								帳號：<input type="email" class="account form-control"
-									maxlength="40" placeholder="新增帳號" required
+									maxlength="40" placeholder="新增帳號" required 
+									value="<%= (administratorVO==null)? "" : administratorVO.getAdministratorAccount()%>"
 									name="administratorAccount">
 							</div>
 							<div class="form-group">
 								密碼：<input type="password" id="addInputPassword"
 									class="account form-control" placeholder="請輸入密碼" required
+									value="<%= (administratorVO==null)? "" : administratorVO.getAdministratorPassword()%>"
 									maxlength="10" name="administratorPassword">
 							</div>
 							<div class="form-group">
 								確認密碼：<input type="password" id="addConfirmPassword"
 									class="account form-control" placeholder="再次輸入密碼" required
+									value="<%= (administratorVO==null)? "" : administratorVO.getAdministratorPassword()%>"
 									required maxlength="10"
 									onchange="if(document.getElementById('addInputPassword').value != document.getElementById('addConfirmPassword').value){setCustomValidity('密碼不吻合');}">
 							</div>
 							<div class="form-group">
-								名稱：<input type="text" class="account form-control" required
+								名稱：<input type="text" class="account form-control" 
 									maxlength="10" placeholder="請輸入名稱" required
+									value="<%= (administratorVO==null)? "" : administratorVO.getAdministratorName()%>"
 									name="administratorName">
 							</div>
 							<div class="form-group">
-								電話：<input type="number" class="account form-control" required
+								電話：<input type="number" class="account form-control" 
 									maxlength="10" placeholder="請輸入電話" required
+									value="<%= (administratorVO==null)? "" : administratorVO.getAdministratorPhone()%>"
 									name="administratorPhone">
 							</div>
 							<input type="hidden" name="administratorRight" value="1">
@@ -243,19 +252,12 @@ img.-on {
 				</div>
 			</div>
 		</div>
-  
+
 		<div class="modal fade" id="updateAdmin">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<c:if test="${not empty errorMsgs}">
-							<ul>
-								<c:forEach var="message" items="${errorMsgs}">
-									<li style="color: red">${message}</li>
-								</c:forEach>
-							</ul>
-						</c:if>
-						<br>
+
 						<h3>修改資料</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 					</div>
@@ -333,15 +335,11 @@ img.-on {
 						<td>${administratorVO.administratorName}</td>
 						<td>${administratorVO.administratorPhone}</td>
 						<td>${administratorVO.administratorAccountBuildTime}</td>
-						<td>
-							
-								<input type="submit" value="修改" data-bs-toggle="modal"
-			data-bs-target="#updateAdmin"> <input type="hidden"
-									name="administratorId"
-									value="${administratorVO.administratorId}"> 
-<!-- 									<input -->
-<!-- 									type="hidden" name="action" value="getOne_For_Update"> -->
-							
+						<td><input type="submit" value="修改" data-bs-toggle="modal"
+							data-bs-target="#updateAdmin"> <input type="hidden"
+							name="administratorId" value="${administratorVO.administratorId}">
+							<!-- 									<input --> <!-- 									type="hidden" name="action" value="getOne_For_Update"> -->
+
 						</td>
 						<td>
 							<FORM METHOD="post"
