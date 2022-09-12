@@ -11,8 +11,6 @@ public class AdministratorVO implements java.io.Serializable{
 	private String administratorPhone;
 	private Date administratorAccountBuildTime;
 	private Integer administratorRight;
-	
-	
 	public Integer getAdministratorId() {
 		return administratorId;
 	}
@@ -55,7 +53,6 @@ public class AdministratorVO implements java.io.Serializable{
 	public void setAdministratorRight(Integer administratorRight) {
 		this.administratorRight = administratorRight;
 	}
-	
 	@Override
 	public String toString() {
 		return "AdministratorVO [administratorId=" + administratorId + ", administratorAccount=" + administratorAccount
@@ -63,5 +60,7 @@ public class AdministratorVO implements java.io.Serializable{
 				+ ", administratorPhone=" + administratorPhone + ", administratorAccountBuildTime="
 				+ administratorAccountBuildTime + ", administratorRight=" + administratorRight + "]";
 	}
+	
+	
 
 }

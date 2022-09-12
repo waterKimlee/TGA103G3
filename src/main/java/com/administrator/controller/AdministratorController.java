@@ -301,18 +301,7 @@ public class AdministratorController extends HttpServlet {
 			}
 			
 			
-//				req.getRequestDispatcher("/administrator/administrator.jsp").forward(req, res);
-			
-//			if (admin.getAdministratorId() != null) 
-//			// 登錄成功
-//			// 存儲數據
-//			req.setAttribute("admin", admin);
-//			// 轉發
-//			String url = "/administrator/administrator.jsp";
-//
-//			RequestDispatcher successView = req.getRequestDispatcher(url);
-//			successView.forward(req, res);
-//				req.getRequestDispatcher("/administrator/administrator.jsp").forward(req, res);
+
 
 		}
 	}
