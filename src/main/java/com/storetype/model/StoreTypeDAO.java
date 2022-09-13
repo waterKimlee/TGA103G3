@@ -29,8 +29,8 @@ public class StoreTypeDAO implements StoreTypeDAOintf {
 	private static final String INSERT_STMT = "INSERT INTO StoreType (store_id,store_type) VALUES (?, ?)";// Administrator_account_build_time,
 	private static final String GET_ALL_STMT = "SELECT store_type_Id,store_id,store_type,store_Type_Update_Time FROM StoreType order by store_type_Id";
 	private static final String GET_ONE_STMT = "SELECT store_type_Id,store_id,store_type,store_Type_Update_Time FROM StoreType where store_type_Id = ?";
-	private static final String DELETE = "DELETE FROM store_type where store_id = ? and store_type = ?";
-	private static final String UPDATE = "UPDATE store_type set  store_Id=?, store_type=?  where store_type_Id = ?";
+	private static final String DELETE = "DELETE FROM storeType where store_id = ? and store_type = ?";
+	private static final String UPDATE = "UPDATE StoreType set  store_Id=?, store_type=?  where store_type_Id = ?";
 
 	@Override
 	public void insert(StoreTypeVO storeTypeVO) {

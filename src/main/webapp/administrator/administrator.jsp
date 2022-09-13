@@ -185,16 +185,11 @@ img.-on {
 			<div class="col-1"></div>
 		</div>
 		<h1>管理者資料</h1>
-		<br>
-		<c:if test="${not empty errorMsgs}">
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color: red">${message}</li>
-				</c:forEach>
-			</ul>
-		</c:if>
-		<br> <a id="addBtn" href="#" type="button" data-bs-toggle="modal"
-			data-bs-target="#addAdmin">新增管理者</a>
+		<br> <br> 
+		<input id="addBtn" type="submit" value="新增管理者"
+							data-bs-toggle="modal" data-bs-target="#addAdmin"> 
+<!-- 		<a id="addBtn" href="#" type="button" -->
+<!-- 			data-bs-toggle="modal" data-bs-target="#addAdmin">新增管理者</a> -->
 
 		<div class="modal fade" id="addAdmin">
 			<div class="modal-dialog">
@@ -203,6 +198,7 @@ img.-on {
 
 						<h3>新增管理者</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+						<div></div>
 					</div>
 					<div class="modal-body">
 						<!-- 新增管理者 -->
@@ -211,33 +207,33 @@ img.-on {
 							method="post">
 							<div class="form-group">
 								帳號：<input type="email" class="account form-control"
-									maxlength="40" placeholder="新增帳號" required 
-									value="<%= (administratorVO==null)? "" : administratorVO.getAdministratorAccount()%>"
+									maxlength="40" placeholder="新增帳號" required
+									value="<%=(administratorVO == null) ? "" : administratorVO.getAdministratorAccount()%>"
 									name="administratorAccount">
 							</div>
 							<div class="form-group">
 								密碼：<input type="password" id="addInputPassword"
 									class="account form-control" placeholder="請輸入密碼" required
-									value="<%= (administratorVO==null)? "" : administratorVO.getAdministratorPassword()%>"
+									value="<%=(administratorVO == null) ? "" : administratorVO.getAdministratorPassword()%>"
 									maxlength="10" name="administratorPassword">
 							</div>
 							<div class="form-group">
 								確認密碼：<input type="password" id="addConfirmPassword"
 									class="account form-control" placeholder="再次輸入密碼" required
-									value="<%= (administratorVO==null)? "" : administratorVO.getAdministratorPassword()%>"
+									value="<%=(administratorVO == null) ? "" : administratorVO.getAdministratorPassword()%>"
 									required maxlength="10"
 									onchange="if(document.getElementById('addInputPassword').value != document.getElementById('addConfirmPassword').value){setCustomValidity('密碼不吻合');}">
 							</div>
 							<div class="form-group">
-								名稱：<input type="text" class="account form-control" 
+								名稱：<input type="text" class="account form-control"
 									maxlength="10" placeholder="請輸入名稱" required
-									value="<%= (administratorVO==null)? "" : administratorVO.getAdministratorName()%>"
+									value="<%=(administratorVO == null) ? "" : administratorVO.getAdministratorName()%>"
 									name="administratorName">
 							</div>
 							<div class="form-group">
-								電話：<input type="number" class="account form-control" 
+								電話：<input type="number" class="account form-control"
 									maxlength="10" placeholder="請輸入電話" required
-									value="<%= (administratorVO==null)? "" : administratorVO.getAdministratorPhone()%>"
+									value="<%=(administratorVO == null) ? "" : administratorVO.getAdministratorPhone()%>"
 									name="administratorPhone">
 							</div>
 							<input type="hidden" name="administratorRight" value="1">
@@ -248,7 +244,15 @@ img.-on {
 								value="insert">確認新增</button>
 						</form>
 					</div>
-					<div class="modal-footer"></div>
+					<div class="modal-footer">
+						<c:if test="${not empty errorMsgs}">
+							<ul>
+								<c:forEach var="message" items="${errorMsgs}">
+									<li style="color: red">${message}</li>
+								</c:forEach>
+							</ul>
+						</c:if>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -304,7 +308,18 @@ img.-on {
 						</form>
 						<div class="modal-footer"></div>
 					</div>
-					<div class="modal-footer"></div>
+					<div class="modal-footer">
+					
+						<c:if test="${not empty errorMsgs}">
+							
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red">${message}</li>
+									</c:forEach>
+								</ul>
+							
+						</c:if>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -335,10 +350,11 @@ img.-on {
 						<td>${administratorVO.administratorName}</td>
 						<td>${administratorVO.administratorPhone}</td>
 						<td>${administratorVO.administratorAccountBuildTime}</td>
-						<td><input type="submit" value="修改" data-bs-toggle="modal"
-							data-bs-target="#updateAdmin"> <input type="hidden"
-							name="administratorId" value="${administratorVO.administratorId}">
-							<!-- 									<input --> <!-- 									type="hidden" name="action" value="getOne_For_Update"> -->
+						<td><input id="inputUpdate" type="submit" value="修改"
+							data-bs-toggle="modal" data-bs-target="#updateAdmin"> <input
+							type="hidden" name="administratorId"
+							value="${administratorVO.administratorId}"> <!-- 									<input -->
+							<!-- 									type="hidden" name="action" value="getOne_For_Update"> -->
 
 						</td>
 						<td>
@@ -358,6 +374,24 @@ img.-on {
 		</div>
 	</div>
 	<footer>footer</footer>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script>
+		var msg = '${errorMsgs}';
+		window.addEventListener("load", () => {
+		      if (msg != ""){
+		    	var x = ${errorMsgs}.pop();
+		    	if (x.length == 3){
+		    		$("#inputUpdate").trigger("click");
+		    	}else{
+		    		$("#addBtn").trigger("click");
+		        console.log(x)
+		    	}
+		      }
+
+		    })
+		
+	</script>
 </body>
 
 </html>
