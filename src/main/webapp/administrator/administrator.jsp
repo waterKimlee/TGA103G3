@@ -272,6 +272,10 @@ img.-on {
 							method="post">
 							<div class="form-group">
 								<input type="hidden" class="account form-control"
+									name="adminId" value="${admin.administratorId}">
+							</div>
+							<div class="form-group">
+								<input type="hidden" class="account form-control"
 									name="administratorId" value="${admin.administratorId}">
 							</div>
 							<div class="form-group">
@@ -374,8 +378,7 @@ img.-on {
 		</div>
 	</div>
 	<footer>footer</footer>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
 		var msg = '${errorMsgs}';
 		window.addEventListener("load", () => {
@@ -389,9 +392,14 @@ img.-on {
 		    	}
 		      }
 
-		    })
+		    });
+		$(document).on("mouseover", "#inputUpdate", function(){
+	    	  console.log("TTT");
+	    });
 		
 	</script>
+	
+<!-- 	<script src="./js/jquery-3.6.0.min.js"></script> -->
 </body>
 
 </html>

@@ -39,6 +39,7 @@ public class AdministratorController extends HttpServlet {
 		
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				Integer administratorId = Integer.valueOf(req.getParameter("administratorId").trim());
+				Integer adminId = Integer.valueOf(req.getParameter("adminId").trim());
 				
 				String administratorAccount = req.getParameter("administratorAccount");
 				String AccountReg = "^\\w{1,63}@[a-zA-Z0-9]{2,63}\\.[a-zA-Z]{2,63}(\\.[a-zA-Z]{2,63})?$";
@@ -77,7 +78,7 @@ public class AdministratorController extends HttpServlet {
 				
 //				Integer adminId = Integer.parseInt(req.getParameter("administratorId"));
 				AdministratorService adminSvc = new AdministratorService();
-				AdministratorVO admin = adminSvc.getOneAdmin(administratorId);
+				AdministratorVO admin = adminSvc.getOneAdmin(adminId);
 				
 
 				// Send the use back to the form, if there were errors
