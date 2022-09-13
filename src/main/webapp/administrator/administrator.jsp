@@ -11,8 +11,8 @@
  
  //把新增有錯誤的物件再傳回來，自動填入新增的輸入框
  AdministratorVO administratorVO = (AdministratorVO) request.getAttribute("administratorVO");
- %>
 
+ %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -275,17 +275,17 @@ img.-on {
 									name="adminId" value="${admin.administratorId}">
 							</div>
 							<div class="form-group">
-								<input type="hidden" class="account form-control"
+								<input type="hidden" class="account form-control" id="id"
 									name="administratorId" value="${admin.administratorId}">
 							</div>
 							<div class="form-group">
 								帳號：<input type="text" class="account form-control" readonly
-									name="administratorAccount"
+									name="administratorAccount" id="account"
 									value="${admin.administratorAccount}">
 							</div>
 							<div class="form-group">
-								名稱：<input type="text" class="account form-control" required
-									maxlength="10" placeholder="請輸入名稱" required
+								名稱：<input type="text" class="account form-control" 
+									maxlength="10" placeholder="請輸入名稱" required id="name"
 									name="administratorName" value="${admin.administratorName}">
 							</div>
 							<div class="form-group">
@@ -302,8 +302,8 @@ img.-on {
 									onchange="if(document.getElementById('updateInputPassword').value != document.getElementById('updateConfirmPassword').value){setCustomValidity('密碼不吻合');}">
 							</div>
 							<div class="form-group">
-								電話：<input type="number" class="account form-control" required
-									maxlength="10" placeholder="請輸入電話" required
+								電話：<input type="number" class="account form-control" 
+									maxlength="10" placeholder="請輸入電話" required id="phone"
 									name="administratorPhone" value="${admin.administratorPhone}">
 							</div>
 							<input type="hidden" name="administratorRight" value="1">
@@ -354,7 +354,7 @@ img.-on {
 						<td>${administratorVO.administratorName}</td>
 						<td>${administratorVO.administratorPhone}</td>
 						<td>${administratorVO.administratorAccountBuildTime}</td>
-						<td><input id="inputUpdate" type="submit" value="修改"
+						<td><input id="inputUpdate" type="submit" value="修改" class="updateBtn"
 							data-bs-toggle="modal" data-bs-target="#updateAdmin"> <input
 							type="hidden" name="administratorId"
 							value="${administratorVO.administratorId}"> <!-- 									<input -->
@@ -374,28 +374,45 @@ img.-on {
 					</tr>
 				</c:forEach>
 			</table>
-
+ 			
 		</div>
 	</div>
 	<footer>footer</footer>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
-		var msg = '${errorMsgs}';
-		window.addEventListener("load", () => {
-		      if (msg != ""){
-		    	var x = ${errorMsgs}.pop();
-		    	if (x.length == 3){
-		    		$("#inputUpdate").trigger("click");
-		    	}else{
-		    		$("#addBtn").trigger("click");
-		        console.log(x)
-		    	}
-		      }
-
-		    });
+		let id, account, password, name, phone;
 		$(document).on("mouseover", "#inputUpdate", function(){
-	    	  console.log("TTT");
-	    });
+			  id = $(this).closest("tr").find("td").eq(0).text();
+	    	  account = $(this).closest("tr").find("td").eq(1).text();
+	    	  password = $(this).closest("tr").find("td").eq(2).text();
+	    	  name = $(this).closest("tr").find("td").eq(3).text();
+	    	  phone = $(this).closest("tr").find("td").eq(4).text();
+	    	  $("#id").val(id);
+	    	  $("#account").val(account);
+	    	  $("#updateInputPassword").val(password);
+	    	  $("#updateConfirmPassword").val(password);
+	    	  $("#name").val(name);
+	    	  $("#phone").val(phone);
+	    	  
+	    	  
+	    	  console.log(id, account, password, name, phone);
+	      });
+// 		let msg = \"${errorMsgs}\";
+//		window.addEventListener("load", () => {
+			
+// 		      if (${errorMsgs} != ""){
+// 		    	var x = ${errorMsgs}.pop();
+// 		    	if (x.length == 3){
+// 		    		$("#inputUpdate").trigger("click");
+// 		    	}else{
+// 		    		$("#addBtn").trigger("click");
+// 		        console.log(x)
+// 		    	}
+// 		      }
+		
+//			console.log(document.querySelectorAll(".updateBtn"))
+		
+//		    });
 		
 	</script>
 	

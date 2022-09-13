@@ -97,7 +97,7 @@ public class AdministratorController extends HttpServlet {
 						 administratorRight);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("admin", administratorVO); // 資料庫update成功後,正確的的AdministratorVO物件,存入req
+				req.setAttribute("admin", admin); // 資料庫update成功後,正確的的AdministratorVO物件,存入req
 				String url = "/administrator/administrator.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
@@ -122,6 +122,7 @@ public class AdministratorController extends HttpServlet {
 				String administratorPassword = req.getParameter("administratorPassword").trim();
 				if (administratorPassword == null || administratorPassword.trim().length() == 0) {
 					errorMsgs.add("\"請輸入密碼\"");
+					
 				}
 												
 				String administratorName = req.getParameter("administratorName");
