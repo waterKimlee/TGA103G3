@@ -358,26 +358,25 @@ img.-on {
 						<td>${administratorVO.administratorAccountBuildTime}</td>
 
 						<!-- 	修改按鈕-->
-<%-- 						<c:if test="${admin.administratorRight == 0 }"> --%>
-						
+						<c:if test="${admin.administratorRight == 0 }">
 						<td><input id="inputUpdate" type="submit" value="修改"
 							class="updateBtn" data-bs-toggle="modal"
 							data-bs-target="#updateAdmin"> <input type="hidden"
 							name="administratorId" value="${admin.administratorId}">
 						</td>
-						
-						
-						
+						</c:if>
+						<c:if test="${admin.administratorRight == 1 }">
+						<c:if test="${admin.administratorId == s.count }">
 						<td><input id="inputUpdate" type="submit" value="修改"
 							class="updateBtn" data-bs-toggle="modal"
 							data-bs-target="#updateAdmin"> <input type="hidden"
 							name="administratorId" value="${admin.administratorId}">
 						</td>
-<%-- 						</c:if> --%>
+						</c:if></c:if>
 						<!-- 刪除按鈕  -->
 						<td>
 						<!-- 權限為0者才能使用刪除按鈕  -->
-<%-- 						<c:if test="${admin.administratorRight == 0 }">  --%>
+						<c:if test="${admin.administratorRight == 0 }"> 
 							<FORM METHOD="post" 
 								ACTION="<%=request.getContextPath()%>/administrator/admin.do"
 								style="margin-bottom: 0px;">
@@ -387,7 +386,7 @@ img.-on {
 								<input type="hidden" class="account form-control" name="adminId"
 									value="${admin.administratorId}">
 							</FORM>
-<%-- 							</c:if> --%>
+							</c:if>
 						</td>
 					</tr>
 				</c:forEach>
