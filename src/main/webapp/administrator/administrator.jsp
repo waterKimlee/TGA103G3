@@ -185,16 +185,25 @@ img.-on {
 			<div class="col-1"></div>
 		</div>
 		<h1>管理者資料</h1>
-		<br> <br> 
-		<input id="addBtn" type="submit" value="新增管理者"
-							data-bs-toggle="modal" data-bs-target="#addAdmin"> 
-<!-- 		<a id="addBtn" href="#" type="button" -->
-<!-- 			data-bs-toggle="modal" data-bs-target="#addAdmin">新增管理者</a> -->
+		<br> <br> <input id="addBtn" type="submit" value="新增管理者"
+			data-bs-toggle="modal" data-bs-target="#addAdmin">
+		<!-- 		<a id="addBtn" href="#" type="button" -->
+		<!-- 			data-bs-toggle="modal" data-bs-target="#addAdmin">新增管理者</a> -->
 
 		<div class="modal fade" id="addAdmin">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
+						<div>
+							<c:if test="${not empty errorMsgs}">
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
+
+						</div>
 
 						<h3>新增管理者</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -212,14 +221,15 @@ img.-on {
 									name="administratorAccount">
 							</div>
 							<div class="form-group">
-								密碼：<input type="password" id="addInputPassword"
+								密碼：<input type="password" id="addInputPassword" minlength="8"
 									class="account form-control" placeholder="請輸入密碼" required
 									value="<%=(administratorVO == null) ? "" : administratorVO.getAdministratorPassword()%>"
 									maxlength="10" name="administratorPassword">
 							</div>
 							<div class="form-group">
 								確認密碼：<input type="password" id="addConfirmPassword"
-									class="account form-control" placeholder="再次輸入密碼" required
+									minlength="8" class="account form-control" placeholder="再次輸入密碼"
+									required
 									value="<%=(administratorVO == null) ? "" : administratorVO.getAdministratorPassword()%>"
 									required maxlength="10"
 									onchange="if(document.getElementById('addInputPassword').value != document.getElementById('addConfirmPassword').value){setCustomValidity('密碼不吻合');}">
@@ -232,7 +242,7 @@ img.-on {
 							</div>
 							<div class="form-group">
 								電話：<input type="number" class="account form-control"
-									maxlength="10" placeholder="請輸入電話" required
+									maxlength="10" placeholder="請輸入電話" required minlength="8"
 									value="<%=(administratorVO == null) ? "" : administratorVO.getAdministratorPhone()%>"
 									name="administratorPhone">
 							</div>
@@ -244,15 +254,7 @@ img.-on {
 								value="insert">確認新增</button>
 						</form>
 					</div>
-					<div class="modal-footer">
-						<c:if test="${not empty errorMsgs}">
-							<ul>
-								<c:forEach var="message" items="${errorMsgs}">
-									<li style="color: red">${message}</li>
-								</c:forEach>
-							</ul>
-						</c:if>
-					</div>
+					<div class="modal-footer"></div>
 				</div>
 			</div>
 		</div>
@@ -261,7 +263,16 @@ img.-on {
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-
+						<div>
+							<c:if test="${not empty errorMsgs}">
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
+						</div>
+						<hr>
 						<h3>修改資料</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 					</div>
@@ -271,8 +282,8 @@ img.-on {
 							action="<%=request.getContextPath()%>/administrator/admin.do"
 							method="post">
 							<div class="form-group">
-								<input type="hidden" class="account form-control"
-									name="adminId" value="${admin.administratorId}">
+								<input type="hidden" class="account form-control" name="adminId"
+									value="${admin.administratorId}">
 							</div>
 							<div class="form-group">
 								<input type="hidden" class="account form-control" id="id"
@@ -284,27 +295,28 @@ img.-on {
 									value="${admin.administratorAccount}">
 							</div>
 							<div class="form-group">
-								名稱：<input type="text" class="account form-control" 
+								名稱：<input type="text" class="account form-control"
 									maxlength="10" placeholder="請輸入名稱" required id="name"
 									name="administratorName" value="${admin.administratorName}">
 							</div>
 							<div class="form-group">
 								密碼：<input type="password" id="updateInputPassword" required
-									maxlength="10" class="account form-control"
+									maxlength="10" minlength="8" class="account form-control"
 									placeholder="請輸入新密碼" value="${admin.administratorPassword}"
 									required name="administratorPassword">
 							</div>
 							<div class="form-group">
 								確認密碼：<input type="password" id="updateConfirmPassword" required
-									maxlength="10" class="account form-control"
+									maxlength="10" minlength="8" class="account form-control"
 									placeholder="再次輸入密碼" required
 									value="${admin.administratorPassword}"
 									onchange="if(document.getElementById('updateInputPassword').value != document.getElementById('updateConfirmPassword').value){setCustomValidity('密碼不吻合');}">
 							</div>
 							<div class="form-group">
-								電話：<input type="number" class="account form-control" 
-									maxlength="10" placeholder="請輸入電話" required id="phone"
-									name="administratorPhone" value="${admin.administratorPhone}">
+								電話：<input type="number" class="account form-control"
+									minlength="8" maxlength="10" placeholder="請輸入電話" required
+									id="phone" name="administratorPhone"
+									value="${admin.administratorPhone}">
 							</div>
 							<input type="hidden" name="administratorRight" value="1">
 							<button type="submit" name="action" value="update">確認修改</button>
@@ -312,18 +324,7 @@ img.-on {
 						</form>
 						<div class="modal-footer"></div>
 					</div>
-					<div class="modal-footer">
-					
-						<c:if test="${not empty errorMsgs}">
-							
-								<ul>
-									<c:forEach var="message" items="${errorMsgs}">
-										<li style="color: red">${message}</li>
-									</c:forEach>
-								</ul>
-							
-						</c:if>
-					</div>
+					<div class="modal-footer"></div>
 				</div>
 			</div>
 		</div>
@@ -337,7 +338,7 @@ img.-on {
 				<tr>
 					<th>編號</th>
 					<th>帳號</th>
-					<th>密碼</th>
+					<!-- 					<th>密碼</th> -->
 					<th>名稱</th>
 					<th>電話</th>
 					<th>建立時間</th>
@@ -350,57 +351,71 @@ img.-on {
 					<tr>
 						<td>${administratorVO.administratorId}</td>
 						<td>${administratorVO.administratorAccount}</td>
-						<td>${administratorVO.administratorPassword}</td>
+						<%-- 						<td>${administratorVO.administratorPassword}</td> --%>
 						<td>${administratorVO.administratorName}</td>
 						<td>${administratorVO.administratorPhone}</td>
 						<td>${administratorVO.administratorAccountBuildTime}</td>
-						<td><input id="inputUpdate" type="submit" value="修改" class="updateBtn"
-							data-bs-toggle="modal" data-bs-target="#updateAdmin"> <input
-							type="hidden" name="administratorId"
-							value="${administratorVO.administratorId}"> <!-- 									<input -->
-							<!-- 									type="hidden" name="action" value="getOne_For_Update"> -->
 
+						<!-- 	修改按鈕-->
+						<td><input id="inputUpdate" type="submit" value="修改"
+							class="updateBtn" data-bs-toggle="modal"
+							data-bs-target="#updateAdmin"> <input type="hidden"
+							name="administratorId" value="${admin.administratorId}">
 						</td>
+						<!-- 刪除按鈕  -->
 						<td>
-							<FORM METHOD="post"
+							<FORM METHOD="post" 
 								ACTION="<%=request.getContextPath()%>/administrator/admin.do"
 								style="margin-bottom: 0px;">
-								<input type="submit" value="刪除"> <input type="hidden"
-									name="administratorId"
-									value="${administratorVO.administratorId}"> <input
-									type="hidden" name="action" value="delete">
+								<input type="submit" value="刪除" class="deleteBtn"  > 
+								<input	type="hidden" name="action" value="delete">
+								<input	type="hidden" name="administratorId" value="${administratorVO.administratorId}">
+								<input type="hidden" class="account form-control" name="adminId"
+									value="${admin.administratorId}">
 							</FORM>
 						</td>
 					</tr>
 				</c:forEach>
 			</table>
- 			
+
 		</div>
 	</div>
 	<footer>footer</footer>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
-		let id, account, password, name, phone;
+		
+		//選擊列表刪除時，記下當行列表中的個人資訊
+		let deleId, id, account, password, name, phone;
+		$(document).on("mouseover", ".deleteBtn", function(){
+			
+			 deleId = $(this).closest("tr").find("td").eq(0).text();
+// 			 $(".deleteBtn").val(deleId);
+			console.log(deleId)
+		});
+		//選擊列表修改時，記下當行列表中的個人資訊
 		$(document).on("mouseover", "#inputUpdate", function(){
 			  id = $(this).closest("tr").find("td").eq(0).text();
 	    	  account = $(this).closest("tr").find("td").eq(1).text();
-	    	  password = $(this).closest("tr").find("td").eq(2).text();
-	    	  name = $(this).closest("tr").find("td").eq(3).text();
-	    	  phone = $(this).closest("tr").find("td").eq(4).text();
+// 	    	  password = $(this).closest("tr").find("td").eq(2).text();
+	    	  name = $(this).closest("tr").find("td").eq(2).text();
+	    	  phone = $(this).closest("tr").find("td").eq(3).text();
 	    	  $("#id").val(id);
 	    	  $("#account").val(account);
-	    	  $("#updateInputPassword").val(password);
-	    	  $("#updateConfirmPassword").val(password);
+// 	    	  $("#updateInputPassword").val(password);
+// 	    	  $("#updateConfirmPassword").val(password);
 	    	  $("#name").val(name);
 	    	  $("#phone").val(phone);
 	    	  
 	    	  
 	    	  console.log(id, account, password, name, phone);
 	      });
-// 		let msg = \"${errorMsgs}\";
-//		window.addEventListener("load", () => {
-			
-// 		      if (${errorMsgs} != ""){
+		
+// 		window.addEventListener("load", () => {
+// 			//有輸入錯誤訊號則跳回到當時視窗
+//				var v =${errorMsgs}''
+// 		      if (${errorMsgs} != "" ){
 // 		    	var x = ${errorMsgs}.pop();
 // 		    	if (x.length == 3){
 // 		    		$("#inputUpdate").trigger("click");
@@ -409,14 +424,11 @@ img.-on {
 // 		        console.log(x)
 // 		    	}
 // 		      }
-		
-//			console.log(document.querySelectorAll(".updateBtn"))
-		
-//		    });
+// 	    	});
 		
 	</script>
-	
-<!-- 	<script src="./js/jquery-3.6.0.min.js"></script> -->
+
+	<!-- 	<script src="./js/jquery-3.6.0.min.js"></script> -->
 </body>
 
 </html>

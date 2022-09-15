@@ -7,7 +7,7 @@ import java.util.List;
 public interface AdministratorDAOintf {
 	public void insert(AdministratorVO administratorVO);
     public void update(AdministratorVO administratorVO);
-    public void delete(Integer AdministratorId);
+    public void delete(Integer administratorId);
     public AdministratorVO findByPrimaryKey(Integer administratorId);
     public List<AdministratorVO> getAll();
     
