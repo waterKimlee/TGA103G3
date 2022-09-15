@@ -195,6 +195,8 @@ public class AdministratorController extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
+		
+		
 		if ("login".equals(action)) {
 //			List<String> errorMsgs = new LinkedList<String>();
 //					req.setAttribute("errorMsgs", errorMsgs);

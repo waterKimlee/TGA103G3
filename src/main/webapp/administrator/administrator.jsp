@@ -87,6 +87,7 @@ tr {
 
 td {
 	border: 2px solid black;
+	height: 56px;
 }
 
 a {
@@ -346,7 +347,7 @@ img.-on {
 					<th>刪除</th>
 				</tr>
 
-				<c:forEach var="administratorVO" items="${list}" begin="0" end="10">
+				<c:forEach var="administratorVO" items="${list}" begin="0" end="10" varStatus="s" >
 
 					<tr>
 						<td>${administratorVO.administratorId}</td>
@@ -357,13 +358,26 @@ img.-on {
 						<td>${administratorVO.administratorAccountBuildTime}</td>
 
 						<!-- 	修改按鈕-->
+<%-- 						<c:if test="${admin.administratorRight == 0 }"> --%>
+						
 						<td><input id="inputUpdate" type="submit" value="修改"
 							class="updateBtn" data-bs-toggle="modal"
 							data-bs-target="#updateAdmin"> <input type="hidden"
 							name="administratorId" value="${admin.administratorId}">
 						</td>
+						
+						
+						
+						<td><input id="inputUpdate" type="submit" value="修改"
+							class="updateBtn" data-bs-toggle="modal"
+							data-bs-target="#updateAdmin"> <input type="hidden"
+							name="administratorId" value="${admin.administratorId}">
+						</td>
+<%-- 						</c:if> --%>
 						<!-- 刪除按鈕  -->
 						<td>
+						<!-- 權限為0者才能使用刪除按鈕  -->
+<%-- 						<c:if test="${admin.administratorRight == 0 }">  --%>
 							<FORM METHOD="post" 
 								ACTION="<%=request.getContextPath()%>/administrator/admin.do"
 								style="margin-bottom: 0px;">
@@ -373,6 +387,7 @@ img.-on {
 								<input type="hidden" class="account form-control" name="adminId"
 									value="${admin.administratorId}">
 							</FORM>
+<%-- 							</c:if> --%>
 						</td>
 					</tr>
 				</c:forEach>
