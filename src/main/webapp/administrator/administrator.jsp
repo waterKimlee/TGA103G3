@@ -347,7 +347,8 @@ img.-on {
 					<th>刪除</th>
 				</tr>
 
-				<c:forEach var="administratorVO" items="${list}" begin="0" end="10" varStatus="s" >
+				<c:forEach var="administratorVO" items="${list}" begin="0" end="10"
+					varStatus="s">
 
 					<tr>
 						<td>${administratorVO.administratorId}</td>
@@ -359,33 +360,35 @@ img.-on {
 
 						<!-- 	修改按鈕-->
 						<c:if test="${admin.administratorRight == 0 }">
-						<td><input id="inputUpdate" type="submit" value="修改"
-							class="updateBtn" data-bs-toggle="modal"
-							data-bs-target="#updateAdmin"> <input type="hidden"
-							name="administratorId" value="${admin.administratorId}">
-						</td>
+							<td><input id="inputUpdate" type="submit" value="修改"
+								class="updateBtn" data-bs-toggle="modal"
+								data-bs-target="#updateAdmin"> <input type="hidden"
+								name="administratorId" value="${admin.administratorId}">
+							</td>
 						</c:if>
 						<c:if test="${admin.administratorRight == 1 }">
-						<c:if test="${admin.administratorId == s.count }">
-						<td><input id="inputUpdate" type="submit" value="修改"
-							class="updateBtn" data-bs-toggle="modal"
-							data-bs-target="#updateAdmin"> <input type="hidden"
-							name="administratorId" value="${admin.administratorId}">
-						</td>
-						</c:if></c:if>
+							<c:if test="${admin.administratorId == s.count }">
+								<td><input id="inputUpdate" type="submit" value="修改"
+									class="updateBtn" data-bs-toggle="modal"
+									data-bs-target="#updateAdmin"> <input type="hidden"
+									name="administratorId" value="${admin.administratorId}">
+								</td>
+							</c:if>
+						</c:if>
 						<!-- 刪除按鈕  -->
 						<td>
-						<!-- 權限為0者才能使用刪除按鈕  -->
-						<c:if test="${admin.administratorRight == 0 }"> 
-							<FORM METHOD="post" 
-								ACTION="<%=request.getContextPath()%>/administrator/admin.do"
-								style="margin-bottom: 0px;">
-								<input type="submit" value="刪除" class="deleteBtn"  > 
-								<input	type="hidden" name="action" value="delete">
-								<input	type="hidden" name="administratorId" value="${administratorVO.administratorId}">
-								<input type="hidden" class="account form-control" name="adminId"
-									value="${admin.administratorId}">
-							</FORM>
+							<!-- 權限為0者才能使用刪除按鈕  --> <c:if
+								test="${admin.administratorRight == 0 }">
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/administrator/admin.do"
+									style="margin-bottom: 0px;">
+									<input type="submit" value="刪除" class="deleteBtn"> <input
+										type="hidden" name="action" value="delete"> <input
+										type="hidden" name="administratorId"
+										value="${administratorVO.administratorId}"> <input
+										type="hidden" class="account form-control" name="adminId"
+										value="${admin.administratorId}">
+								</FORM>
 							</c:if>
 						</td>
 					</tr>
@@ -400,6 +403,8 @@ img.-on {
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
 		
+		
+	
 		//選擊列表刪除時，記下當行列表中的個人資訊
 		let deleId, id, account, password, name, phone;
 		$(document).on("mouseover", ".deleteBtn", function(){
@@ -408,6 +413,11 @@ img.-on {
 // 			 $(".deleteBtn").val(deleId);
 			console.log(deleId)
 		});
+// 		$(document).on("click", ".deleteBtn", function(){
+			
+// 			var r =  confirm("確認刪除？");
+// 			if(!r) return;
+// 		});
 		//選擊列表修改時，記下當行列表中的個人資訊
 		$(document).on("mouseover", "#inputUpdate", function(){
 			  id = $(this).closest("tr").find("td").eq(0).text();
@@ -426,19 +436,29 @@ img.-on {
 	    	  console.log(id, account, password, name, phone);
 	      });
 		
-// 		window.addEventListener("load", () => {
-// 			//有輸入錯誤訊號則跳回到當時視窗
-//				var v =${errorMsgs}''
-// 		      if (${errorMsgs} != "" ){
-// 		    	var x = ${errorMsgs}.pop();
-// 		    	if (x.length == 3){
-// 		    		$("#inputUpdate").trigger("click");
-// 		    	}else{
-// 		    		$("#addBtn").trigger("click");
-// 		        console.log(x)
-// 		    	}
-// 		      }
+		window.addEventListener("load", () => {
+			//有輸入錯誤訊號則跳回到當時視窗
+				var v = ${errorMsgs};
+		      if (${errorMsgs} != "" ){
+		    	var x = ${errorMsgs}.pop();
+		    	if (x.length == 3){
+		    		$("#inputUpdate").trigger("click");
+		    	}else{
+		    		$("#addBtn").trigger("click");
+		        console.log(x)
+		    	}
+		      }
+// 		      var save = $(document).on("click", ".deleteBtn",function() {
+// 			        var f = eval(this.getAttribute("form"));
+// 			        if (confirm('确定修改？')) {
+// 			            // TODO
+// 			            f.submit();
+// 			        } else {
+// 			            f.onsubmit = new Function("return false");
+// 			        }
+			    
 // 	    	});
+		});
 		
 	</script>
 
