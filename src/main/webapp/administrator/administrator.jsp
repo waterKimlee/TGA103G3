@@ -232,8 +232,8 @@ img.-on {
 									minlength="8" class="account form-control" placeholder="再次輸入密碼"
 									required
 									value="<%=(administratorVO == null) ? "" : administratorVO.getAdministratorPassword()%>"
-									required maxlength="10"
-									onchange="if(document.getElementById('addInputPassword').value != document.getElementById('addConfirmPassword').value){setCustomValidity('密碼不吻合');}">
+									required maxlength="10" >
+<!-- 									onchange="if(document.getElementById('addInputPassword').value != document.getElementById('addConfirmPassword').value){setCustomValidity('密碼不吻合');}"> -->
 							</div>
 							<div class="form-group">
 								名稱：<input type="text" class="account form-control"
@@ -367,8 +367,9 @@ img.-on {
 							</td>
 						</c:if>
 						<c:if test="${admin.administratorRight == 1 }">
-							<c:if test="${admin.administratorId == s.count }">
-								<td><input id="inputUpdate" type="submit" value="修改"
+							<c:if test="${admin.administratorAccount == administratorVO.administratorAccount }">
+								<td>
+								<input id="inputUpdate" type="submit" value="修改"
 									class="updateBtn" data-bs-toggle="modal"
 									data-bs-target="#updateAdmin"> <input type="hidden"
 									name="administratorId" value="${admin.administratorId}">
