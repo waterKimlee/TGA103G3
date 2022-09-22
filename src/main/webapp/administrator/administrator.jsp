@@ -100,8 +100,9 @@ a {
 	text-align: center;
 	box-shadow: 2px 3px 2px #4d4d4d;
 }
-a.admin{
-border: 2px solid red;
+
+a.admin {
+	border: 2px solid red;
 }
 
 h2 {
@@ -235,8 +236,8 @@ img.-on {
 									minlength="8" class="account form-control" placeholder="再次輸入密碼"
 									required
 									value="<%=(administratorVO == null) ? "" : administratorVO.getAdministratorPassword()%>"
-									required maxlength="10" >
-<!-- 									onchange="if(document.getElementById('addInputPassword').value != document.getElementById('addConfirmPassword').value){setCustomValidity('密碼不吻合');}"> -->
+									required maxlength="10">
+								<!-- 									onchange="if(document.getElementById('addInputPassword').value != document.getElementById('addConfirmPassword').value){setCustomValidity('密碼不吻合');}"> -->
 							</div>
 							<div class="form-group">
 								名稱：<input type="text" class="account form-control"
@@ -370,9 +371,9 @@ img.-on {
 							</td>
 						</c:if>
 						<c:if test="${admin.administratorRight == 1 }">
-							<c:if test="${admin.administratorAccount == administratorVO.administratorAccount }">
-								<td>
-								<input id="inputUpdate" type="submit" value="修改"
+							<c:if
+								test="${admin.administratorAccount == administratorVO.administratorAccount }">
+								<td><input id="inputUpdate" type="submit" value="修改"
 									class="updateBtn" data-bs-toggle="modal"
 									data-bs-target="#updateAdmin"> <input type="hidden"
 									name="administratorId" value="${admin.administratorId}">
@@ -386,12 +387,14 @@ img.-on {
 								<FORM METHOD="post"
 									ACTION="<%=request.getContextPath()%>/administrator/admin.do"
 									style="margin-bottom: 0px;">
-									<input type="submit" value="刪除" class="deleteBtn"> <input
-										type="hidden" name="action" value="delete"> <input
-										type="hidden" name="administratorId"
-										value="${administratorVO.administratorId}"> <input
-										type="hidden" class="account form-control" name="adminId"
-										value="${admin.administratorId}">
+									<input type="submit"
+										onclick="onRemoveClick(${administratorVO.administratorId})"
+										value="刪除" class="deleteBtn"> 
+										<input type="hidden" name="action" value="delete"> 
+										<input type="hidden" name="administratorId"
+										value="${administratorVO.administratorId}"> 
+										<input	type="hidden" class="account form-control" 
+										name="adminId" value="${admin.administratorId}">
 								</FORM>
 							</c:if>
 						</td>
@@ -417,11 +420,7 @@ img.-on {
 // 			 $(".deleteBtn").val(deleId);
 			console.log(deleId)
 		});
-// 		$(document).on("click", ".deleteBtn", function(){
-			
-// 			var r =  confirm("確認刪除？");
-// 			if(!r) return;
-// 		});
+
 		//選擊列表修改時，記下當行列表中的個人資訊
 		$(document).on("mouseover", "#inputUpdate", function(){
 			  id = $(this).closest("tr").find("td").eq(0).text();
@@ -462,10 +461,23 @@ img.-on {
 			    
 // 	    	});
 		});
-		
+// 		function onRemoveClick(id) {
+// 		    if (!confirm('確定刪除?')) {
+// 		        return;
+// 		    }
+// 		    let form_data = new FormData();
+// 		    form_data.append("action", "delete");
+// 		    form_data.append("administratorId", id);
+// 		    form_data.append("adminId", "${admin.administratorId}");
+<%-- 		    fetch("<%=request.getContextPath()%>/administrator/admin.do", { --%>
+// 		        method: 'POST',
+// 		        body: form_data
+// 		    });
+		    
+// 		}
+// 		        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 	</script>
 
-	<!-- 	<script src="./js/jquery-3.6.0.min.js"></script> -->
 </body>
 
 </html>

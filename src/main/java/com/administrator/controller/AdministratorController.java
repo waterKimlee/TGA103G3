@@ -174,7 +174,9 @@ public class AdministratorController extends HttpServlet {
 				
 				
 		}
-
+//        System.out.println(req.getParameterValues("administratorId"));
+//        System.out.println(req.getParameterValues("action"));
+        
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
