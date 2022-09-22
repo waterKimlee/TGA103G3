@@ -63,7 +63,7 @@ form {
 	align-items: center;
 }
 
-input {
+input, button {
 	border-radius: 5px;
 	margin: 10px;
 	width: 60px;
@@ -384,17 +384,17 @@ img.-on {
 						<td>
 							<!-- 權限為0者才能使用刪除按鈕  --> <c:if
 								test="${admin.administratorRight == 0 }">
-								<FORM METHOD="post"
+								<!-- 								使用form的onsubmit ，函式裡回傳true才真的送出，若回傳false則不送出 -->
+								<FORM METHOD="post" onsubmit="return onRemoveClick()"
 									ACTION="<%=request.getContextPath()%>/administrator/admin.do"
 									style="margin-bottom: 0px;">
-									<input type="submit"
-										onclick="onRemoveClick(${administratorVO.administratorId})"
-										value="刪除" class="deleteBtn"> 
-										<input type="hidden" name="action" value="delete"> 
-										<input type="hidden" name="administratorId"
-										value="${administratorVO.administratorId}"> 
-										<input	type="hidden" class="account form-control" 
-										name="adminId" value="${admin.administratorId}">
+									<!-- 									<input type="submit" value="刪除" class="deleteBtn"> -->
+									<button type="submit" class="deleteBtn">刪除</button>
+									<input type="hidden" name="action" value="delete"> <input
+										type="hidden" name="administratorId"
+										value="${administratorVO.administratorId}"> <input
+										type="hidden" class="account form-control" name="adminId"
+										value="${admin.administratorId}">
 								</FORM>
 							</c:if>
 						</td>
@@ -417,11 +417,10 @@ img.-on {
 		$(document).on("mouseover", ".deleteBtn", function(){
 			
 			 deleId = $(this).closest("tr").find("td").eq(0).text();
-// 			 $(".deleteBtn").val(deleId);
-			console.log(deleId)
+			 console.log(deleId)
 		});
 
-		//選擊列表修改時，記下當行列表中的個人資訊
+		//選擊列表修改時，記下當行列表中的個人資訊，方便帶入修改輸入視窗中
 		$(document).on("mouseover", "#inputUpdate", function(){
 			  id = $(this).closest("tr").find("td").eq(0).text();
 	    	  account = $(this).closest("tr").find("td").eq(1).text();
@@ -450,17 +449,14 @@ img.-on {
 		    		$("#addBtn").trigger("click");
  		    	}
  		      };
-// 		      var save = $(document).on("click", ".deleteBtn",function() {
-// 			        var f = eval(this.getAttribute("form"));
-// 			        if (confirm('确定修改？')) {
-// 			            // TODO
-// 			            f.submit();
-// 			        } else {
-// 			            f.onsubmit = new Function("return false");
-// 			        }
-			    
-// 	    	});
 		});
+		
+		function onRemoveClick() {
+		    if (!confirm('確定刪除?')) {
+		        return false;
+		    }
+		    return true;
+		}	    
 // 		function onRemoveClick(id) {
 // 		    if (!confirm('確定刪除?')) {
 // 		        return;
