@@ -210,12 +210,12 @@ public class AdministratorController extends HttpServlet {
 			// 調用dao的login方法
 			AdministratorDAO dao = new AdministratorDAO();
 			AdministratorVO admin = dao.login(loginAdmin);
+			List<String> errorMsgs = new LinkedList<String>();
 
 			// 判斷admin
 			if (admin.getAdministratorId() == null) {
 				// 登錄失敗
 				String url = "/administrator/login_administrator.jsp";
-				List<String> errorMsgs = new LinkedList<String>();
 				req.setAttribute("errorMsgs", errorMsgs);
 				// Store this set in the request scope, in case we need to
 				// send the ErrorPage view.
@@ -228,6 +228,7 @@ public class AdministratorController extends HttpServlet {
 				}
 			}else {
 				req.setAttribute("admin", admin);
+				req.setAttribute("errorMsgs", errorMsgs);
 			// 轉發
 			String url = "/administrator/administrator.jsp";
 

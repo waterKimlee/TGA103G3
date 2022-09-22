@@ -100,6 +100,9 @@ a {
 	text-align: center;
 	box-shadow: 2px 3px 2px #4d4d4d;
 }
+a.admin{
+border: 2px solid red;
+}
 
 h2 {
 	display: inline-block;
@@ -149,7 +152,7 @@ img.-on {
 <body>
 	<header>
 		<div id="header" class="row">
-			<img class="logo" src="./images/logo_navy2.png" alt="logo" />
+			<img class="logo -on" src="./images/logo_navy2.png" alt="logo" />
 
 			<p>管理者頁面${admin.administratorId}</p>
 
@@ -169,7 +172,7 @@ img.-on {
 		<div class="row justify-content-center" style="width: 100%">
 			<div class="col-1"></div>
 			<div class="col-2">
-				<a href="administrator.html">管理者資料</a>
+				<a href="administrator.html" class="admin">管理者資料</a>
 			</div>
 			<div class="col-2">
 				<a href="administrator_store.html">商家管理</a>
@@ -407,7 +410,7 @@ img.-on {
 		
 	
 		//選擊列表刪除時，記下當行列表中的個人資訊
-		let deleId, id, account, password, name, phone;
+		let deleId, id, account, name, phone;
 		$(document).on("mouseover", ".deleteBtn", function(){
 			
 			 deleId = $(this).closest("tr").find("td").eq(0).text();
@@ -434,21 +437,20 @@ img.-on {
 	    	  $("#phone").val(phone);
 	    	  
 	    	  
-	    	  console.log(id, account, password, name, phone);
+	    	  console.log(id, account, name, phone);
 	      });
 		
 		window.addEventListener("load", () => {
 			//有輸入錯誤訊號則跳回到當時視窗
-				var v = ${errorMsgs};
-		      if (${errorMsgs} != "" ){
-		    	var x = ${errorMsgs}.pop();
-		    	if (x.length == 3){
+//				var v = ${errorMsgs};
+ 		      if (${errorMsgs} != "" ){
+ 		    	var x = ${errorMsgs}.pop();
+ 		    	if (x.length == 3){
 		    		$("#inputUpdate").trigger("click");
 		    	}else{
 		    		$("#addBtn").trigger("click");
-		        console.log(x)
-		    	}
-		      }
+ 		    	}
+ 		      };
 // 		      var save = $(document).on("click", ".deleteBtn",function() {
 // 			        var f = eval(this.getAttribute("form"));
 // 			        if (confirm('确定修改？')) {
