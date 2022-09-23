@@ -19,6 +19,7 @@
 	crossorigin="anonymous">
 <style>
 * {
+/* 	background-color: #3fcfe2; */
 	display: absolute;
 	box-sizing: border-box;
 	font-family: 微軟正黑體 !important;
@@ -107,20 +108,18 @@ li {
 
 					<h2>管理者登入</h2>
 
-
-					<label for="administratorAccount">管理者帳號：</label> <input
-						type="email" id="administratorAccount" name="administratorAccount"
+					<label for="administratorAccount">管理者帳號：</label> 
+					<input	type="email" id="administratorAccount" name="administratorAccount"
 						placeholder="請輸入帳號" required>
 					<div class="tab"></div>
 
-					<label for="administratorPassword">密碼：</label> <input
-						type="password" id="administratorPassword"
+					<label for="administratorPassword">密碼：</label> 
+					<input	type="password" id="administratorPassword"
 						name="administratorPassword" placeholder="請輸入密碼" required>
 					<div class="tab"></div>
-					<br> <input type="submit" value="確認登錄" class="submit">
+					<br> 
+					<input type="submit" value="確認登錄" class="submit">
 					<input type="hidden" name="action" value="login">
-
-
 
 					<!-- <input type="submit" value="確認登錄" class="submit" > -->
 				</form>

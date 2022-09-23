@@ -21,9 +21,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.administrator.model.AdministratorDAO;
-import com.administrator.model.AdministratorService;
-import com.administrator.model.AdministratorVO;
+import com.fastero.dao.impl.AdministratorDAO;
+import com.fastero.service.impl.AdministratorService;
+import com.fastero.vo.AdministratorVO;
 
 public class DaoTest  {
 	
