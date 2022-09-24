@@ -7,6 +7,6 @@ import com.fastero.vo.StoreVO;
 //
 public interface StoreDAO {
 
-	List<StoreVO> selectAll();
+	public List<StoreVO> selectAll();
 
 }

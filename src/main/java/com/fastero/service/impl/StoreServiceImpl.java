@@ -12,14 +12,23 @@ import com.fastero.vo.StoreVO;
 public class StoreServiceImpl implements StoreService{
 	private StoreDAO dao;
 	
-	public StoreServiceImpl() throws NamingException {
-		dao = new StoreDAOImpl();
+	public StoreServiceImpl()  {
+		try {
+			dao = new StoreDAOImpl();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
 	public List<StoreVO> findAllStores() {
 		
-		return dao.selectAll();
+		try {
+			return dao.selectAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

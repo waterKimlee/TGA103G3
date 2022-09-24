@@ -38,6 +38,7 @@ public class UserController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// CROS
+//		request.setCharacterEncoding("UTF-8");
 		setHeaders(response);
 		
 		response.getWriter().print(_gson.toJson(service.getAll()));

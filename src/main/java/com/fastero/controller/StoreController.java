@@ -22,11 +22,7 @@ public class StoreController extends HttpServlet {
 	
 	@Override
 	public void init() throws ServletException {
-		try {
-			service = new StoreServiceImpl();
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+		service = new StoreServiceImpl();
 	}
 
 	@Override
