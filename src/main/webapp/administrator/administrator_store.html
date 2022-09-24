@@ -130,6 +130,31 @@
 			box-shadow: 2px 3px 5px #4d4d4d;
 			text-shadow: 1px 1px 1px #4d4d4d;
 		}
+
+		.modal-content {
+			width: 800px;
+			background-color: lightblue;
+			left: 50%;
+			transform: translate(-50%);
+		}
+
+		.modal-body input {
+			width: 100%;
+			/* transform: translate(10%); */
+			display: inline-block;
+		}
+
+		.modal-body .col-2 {
+			display: flex;
+			align-items: center;
+		}
+
+		.modal-header h3 {
+			position: absolute;
+
+			left: 50%;
+			transform: translate(-50%);
+		}
 	</style>
 </head>
 
@@ -180,54 +205,84 @@
 
 
 
-		<div class="modal fade" id="updateAdmin">
+		<div class="modal fade" id="storelist">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<hr>
+
 						<h3>商家資料</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 					</div>
 					<div class="modal-body">
 
-						<form action="<%=request.getContextPath()%>/administrator/admin.do" method="post">
-							<div class="form-group">
-								<input type="hidden" class="account form-control" name="adminId" value="${admin.administratorId}">
-							</div>
-							<div class="form-group">
-								<input type="hidden" class="account form-control" id="id" name="administratorId"
-									value="${admin.administratorId}">
-							</div>
-							<div class="form-group">
-								帳號：<input type="text" class="account form-control" readonly name="administratorAccount" id="account"
-									value="${admin.administratorAccount}">
-							</div>
-							<div class="form-group">
-								名稱：<input type="text" class="account form-control" maxlength="10" placeholder="請輸入名稱" required id="name"
-									name="administratorName" value="${admin.administratorName}">
-							</div>
-							<div class="form-group">
-								密碼：<input type="password" id="updateInputPassword" required maxlength="10" minlength="8"
-									class="account form-control" placeholder="請輸入新密碼" value="${admin.administratorPassword}" required
-									name="administratorPassword">
-							</div>
-							<div class="form-group">
-								確認密碼：<input type="password" id="updateConfirmPassword" required maxlength="10" minlength="8"
-									class="account form-control" placeholder="再次輸入密碼" required value="${admin.administratorPassword}"
-									onchange="if(document.getElementById('updateInputPassword').value != document.getElementById('updateConfirmPassword').value){setCustomValidity('密碼不吻合');}">
-							</div>
-							<div class="form-group">
-								電話：<input type="number" class="account form-control" minlength="8" maxlength="10" placeholder="請輸入電話"
-									required id="phone" name="administratorPhone" value="${admin.administratorPhone}">
-							</div>
-							<input type="hidden" name="administratorRight" value="1">
-							<button type="submit" name="action" value="update">確認修改</button>
+						<!-- 						store_id, store_name, store_address, store_longitude, store_latitude,  -->
+						<!-- 						store_phone, store_email, store_admin_account, store_admin_password,  -->
+						<!-- 						store_admin_phone, store_admin_address, store_preview_img, store_introduction,  -->
+						<!-- 						store_open_status, store_account_status, store_admin_name, store_admin_id,  -->
+						<!-- 						store_build_time, store_update_time, store_comment_number, store_total_star, store_business_time -->
 
-						</form>
-						<div class="modal-footer"></div>
+
+						<div class="form-group row">
+							<div class="col-2">商家名稱：</div>
+							<div class="col-10"><input type="text" class="account form-control" readonly id="storename" name=""
+									value="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-2">商家地址：</div>
+							<div class="col-10"><input type="text" class="account form-control" readonly id="storeadd" name=""
+									value="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-2">商家電話：</div>
+							<div class="col-10"><input type="text" class="account form-control" readonly id="storephone" name=""
+									value="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-2">商家email：</div>
+							<div class="col-10"><input type="text" class="account form-control" readonly id="storeemail" name=""
+									value="">
+							</div>
+						</div>
+						<hr>
+						<div class="form-group row">
+							<div class="col-2">負責人名稱：</div>
+							<div class="col-10"><input type="text" class="account form-control" readonly id="adminname" name=""
+									value="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-2">身份証字號：</div>
+							<div class="col-10"><input type="text" class="account form-control" readonly id="adminid" name=""
+									value="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-2">負責人電話：</div>
+							<div class="col-10"><input type="text" class="account form-control" readonly id="adminphone" name=""
+									value="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-2">負責人帳號：</div>
+							<div class="col-10"><input type="text" class="account form-control" readonly id="adminaccount" name=""
+									value="">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-2">成立時間：</div>
+							<div class="col-10"><input type="text" class="account form-control" readonly id="storetime" name=""
+									value="">
+							</div>
+						</div>
+
 					</div>
 					<div class="modal-footer"></div>
 				</div>
+				<div class="modal-footer"></div>
+
 			</div>
 		</div>
 
@@ -250,13 +305,13 @@
 				</thead>
 
 				<tbody id="store">
-					<tr>
+					<!-- <tr>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>
+					</tr> -->
 				</tbody>
 
 			</table>
@@ -268,15 +323,30 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 	<script>
+		function storeTemplate(storeID, storename, storeaddress, storephone, storeemail) {
+			return `<tr data-bs-toggle="modal"
+								data-bs-target="#storelist" class="storelist">
+
+					<td>${storeID}</td>
+					<td>${storename}</td>
+					<td>${storeaddress}</td>
+					<td>${storephone}</td>
+					<td>${storeemail}</td>
+				</tr>`
+
+		}
+
+		const url = "http://localhost:8081/TGA103G3/admingetstore"
 		window.addEventListener("load", () => {
 
-			const url = "http://localhost:8081/TGA103G3/admingetstore"
 
 			fetch(url)
 				.then((res) => res.json())
 				.then((data) => {
 					console.log(data);
-
+					document.querySelector("#store").innerHTML = data.
+						map((e) => storeTemplate(e.storeID, e.storename, e.storeaddress, e.storephone, e.storeemail))
+						.join('');
 
 				})
 
@@ -284,22 +354,40 @@
 			// $("p.nickname").innerHTML = nickname;
 			// console.log($("p.nickname").innerText);
 
-			// function storeTemplate() {
-			// 	return `<tr>
-			// 			<td>${}</td>
-			// 			<td>${}</td>
-			// 			<td>${}</td>
-			// 			<td>${}</td>
-			// 			<td>${}</td>
-			// 		</tr>`
+		});
 
-			// }
+		let id, account, name, phone;
+
+		//選擊列表抓取店家編號
+		$(document).on("mouseover", ".storelist", function () {
+			id = $(this).find("td").eq(0).text();
+			console.log(id);
+		});
+		$(document).on("click", ".storelist", function () {
+			fetch(url)
+				.then((res) => res.json())
+				.then((data) => {
+					console.log(data);
+					// document.querySelector("#store").innerHTML = data.
+					// 	map((e) => storeTemplate(e.storeID, e.storename, e.storeaddress, e.storephone, e.storeemail))
+					// 	.join('');
+					$("#storename").val(data[id - 1].storename);
+					$("#storeadd").val(data[id - 1].storeaddress);
+					$("#storephone").val(data[id - 1].storephone);
+					$("#storeemail").val(data[id - 1].storeemail);
+					$("#adminname").val(data[id - 1].storeadminname);
+					$("#adminid").val(data[id - 1].storeadminID);
+					$("#adminphone").val(data[id - 1].storeadminphone);
+					$("#adminaccount").val(data[id - 1].storeadminaccount);
+					$("#storetime").val(data[id - 1].storebuildtime);
+				})
 
 
 
 
 
 		});
+
 
 	</script>
 
