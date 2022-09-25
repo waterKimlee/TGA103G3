@@ -107,7 +107,7 @@ public class ReviewDAO implements ReviewDAOIntf{
 					pstmt.setString(5, reviewVO.getReview_text());
 					pstmt.setString(6, reviewVO.getReview_store_response());
 					pstmt.setDate(7, reviewVO.getReview_time());
-
+//=============================================      順序有錯 1 要在最後
 					pstmt.executeUpdate();
 
 					// Handle any SQL errors
