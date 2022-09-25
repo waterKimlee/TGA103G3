@@ -388,7 +388,6 @@
 								<script>
 
 
-
 									//選擊列表刪除時，記下當行列表中的個人資訊
 									let deleId, id, account, name, phone;
 									$(document).on("mouseover", ".deleteBtn", function () {
@@ -430,41 +429,25 @@
 											body: JSON.stringify(
 												{
 													administratorAccount: account,
-													administratorPassword: password
 												})
 
 										}).then(res => res.json()).then((data) => {
 											console.log(data.administratorName);
 											document.querySelector(".adminname").innerHTML = data.administratorName;
 										})
+										
+										
 
 									}
-
 
 									document.querySelector('#logout').addEventListener('click', () => {
 										fetch('http://localhost:8081/TGA103G3/administrator/AdminLogout').then(res => res.text).then();
 										window.location.href = 'http://localhost:8081/TGA103G3/administrator/login_administrator.jsp';
 									});
-									//有輸入錯誤訊號則跳回到當時視窗
-									// window.addEventListener("load", init)
-									// function init() {
-
-									// 	var v = ${ errorMsgs };
-									// 	if (v != "") {
-									// 		var x = ${ errorMsgs }.pop();
-									// 		if (x.length == 3) {
-									// 			$("#inputUpdate").trigger("click");
-									// 		} else {
-									// 			$("#addBtn").trigger("click");
-									// 		}
-									// 	};
-									// }
-
-
-
 
 									sessionStorage.setItem('nickname', "${admin.administratorName}");
 									document.querySelector(".adminname").innerHTML = sessionStorage.getItem('nickname');
+									
 									function onRemoveClick() {
 										if (!confirm('確定刪除?')) {
 											return false;

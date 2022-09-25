@@ -58,7 +58,7 @@ public class AdminLogin extends HttpServlet {
 
 		AdministratorDAO dao = new AdministratorDAO();
 		
-		if (account == null) {
+		if (password == null) {
 			// Read POST
 			BufferedReader read = req.getReader();
 			// 存字串
@@ -89,22 +89,22 @@ public class AdminLogin extends HttpServlet {
 			// 登錄失敗
 			String url = "/administrator/login_administrator.jsp";
 			req.setAttribute("errorMsgs", errorMsgs);
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
 			errorMsgs.add("帳號或密碼錯誤，請重新輸入");
 
-			if (!errorMsgs.isEmpty()) {
+//			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				return;// 程式中斷
-			}
+//			}
 		} else {
-			req.setAttribute("admin", admin);
+//			req.setAttribute("admin", admin);
 			req.setAttribute("errorMsgs", errorMsgs);
 			HttpSession session = req.getSession();
-			session.setAttribute("nickname", admin.getAdministratorName());
+//			session.setAttribute("nickname", admin.getAdministratorName());
 			session.setAttribute("admin", admin);
+			
 			System.out.println(session.getAttribute("nickname"));
+			
 		// 轉發
 		String url = "/administrator/administrator_index.jsp";
 

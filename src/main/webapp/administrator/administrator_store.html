@@ -373,6 +373,10 @@
 				})
 		});
 
+		document.querySelector('#logout').addEventListener('click', () => {
+			fetch('http://localhost:8081/TGA103G3/administrator/AdminLogout').then(res => res.text).then();
+			window.location.href = 'http://localhost:8081/TGA103G3/administrator/login_administrator.jsp';
+		});
 
 	</script>
 
