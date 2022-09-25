@@ -32,10 +32,9 @@
 			text-align: center;
 		}
 
-		footer {
-			border: 3px solid red;
-			display: none;
-			margin: 50px 0px 0px 0px;
+		.footer {
+			width: 100%;
+			margin-bottom: 20px;
 		}
 
 		form {
@@ -151,9 +150,18 @@
 
 		.modal-header h3 {
 			position: absolute;
-
 			left: 50%;
 			transform: translate(-50%);
+
+		}
+
+		.col-10>input {
+			border-radius: 10px;
+		}
+
+		#logout {
+			width: 10%;
+			height: 40px;
 		}
 	</style>
 </head>
@@ -164,21 +172,15 @@
 			<img class="logo -on" src="./images/logo_navy2.png" alt="logo" />
 
 			<p>管理者頁面</p>
-			<p class="nickname">${admin.administratorId}</p>
+			<p class="nickname"></p>
 
-			<!-- <FORM METHOD="post"
-				ACTION="<%=request.getContextPath()%>/administrator/admin.do"
-				>
-				<input id="logout" type="submit" value="登出"> <input type="hidden"
-					name="administratorId" value="${administratorVO.administratorId}">
-				<input type="hidden" name="action" value="delete">
-			</FORM> -->
+			<button id="logout" type="submit" value="登出">登出</button>
 
 		</div>
 
 
 	</header>
-	<div class="container">
+	<div class="container" style="background-color: rgb(188, 215, 208)">
 		<div class="row justify-content-center" style="width: 100%">
 			<div class="col-1"></div>
 			<div class="col-2">
@@ -198,13 +200,10 @@
 			</div>
 			<div class="col-1"></div>
 		</div>
+		<hr>
 		<h1>商家管理</h1>
-
-		<!-- 		<a id="addBtn" href="#" type="button" -->
-		<!-- 			data-bs-toggle="modal" data-bs-target="#addAdmin">新增管理者</a> -->
-
-
-
+		<hr>
+		<!-- 商家明細燈箱 -->
 		<div class="modal fade" id="storelist">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -214,67 +213,59 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 					</div>
 					<div class="modal-body">
-
-						<!-- 						store_id, store_name, store_address, store_longitude, store_latitude,  -->
-						<!-- 						store_phone, store_email, store_admin_account, store_admin_password,  -->
-						<!-- 						store_admin_phone, store_admin_address, store_preview_img, store_introduction,  -->
-						<!-- 						store_open_status, store_account_status, store_admin_name, store_admin_id,  -->
-						<!-- 						store_build_time, store_update_time, store_comment_number, store_total_star, store_business_time -->
-
-
 						<div class="form-group row">
 							<div class="col-2">商家名稱：</div>
-							<div class="col-10"><input type="text" class="account form-control" readonly id="storename" name=""
-									value="">
+							<div class="col-10">
+								<input type="text" class="account form-control" readonly id="storename" name="" value="">
 							</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-2">商家地址：</div>
-							<div class="col-10"><input type="text" class="account form-control" readonly id="storeadd" name=""
-									value="">
+							<div class="col-10">
+								<input type="text" class="account form-control" readonly id="storeadd" name="" value="">
 							</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-2">商家電話：</div>
-							<div class="col-10"><input type="text" class="account form-control" readonly id="storephone" name=""
-									value="">
+							<div class="col-10">
+								<input type="text" class="account form-control" readonly id="storephone" name="" value="">
 							</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-2">商家email：</div>
-							<div class="col-10"><input type="text" class="account form-control" readonly id="storeemail" name=""
-									value="">
+							<div class="col-10">
+								<input type="text" class="account form-control" readonly id="storeemail" name="" value="">
 							</div>
 						</div>
 						<hr>
 						<div class="form-group row">
 							<div class="col-2">負責人名稱：</div>
-							<div class="col-10"><input type="text" class="account form-control" readonly id="adminname" name=""
-									value="">
+							<div class="col-10">
+								<input type="text" class="account form-control" readonly id="adminname" name="" value="">
 							</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-2">身份証字號：</div>
-							<div class="col-10"><input type="text" class="account form-control" readonly id="adminid" name=""
-									value="">
+							<div class="col-10">
+								<input type="text" class="account form-control" readonly id="adminid" name="" value="">
 							</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-2">負責人電話：</div>
-							<div class="col-10"><input type="text" class="account form-control" readonly id="adminphone" name=""
-									value="">
+							<div class="col-10">
+								<input type="text" class="account form-control" readonly id="adminphone" name="" value="">
 							</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-2">負責人帳號：</div>
-							<div class="col-10"><input type="text" class="account form-control" readonly id="adminaccount" name=""
-									value="">
+							<div class="col-10">
+								<input type="text" class="account form-control" readonly id="adminaccount" name="" value="">
 							</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-2">成立時間：</div>
-							<div class="col-10"><input type="text" class="account form-control" readonly id="storetime" name=""
-									value="">
+							<div class="col-10">
+								<input type="text" class="account form-control" readonly id="storetime" name="" value="">
 							</div>
 						</div>
 
@@ -288,7 +279,8 @@
 
 
 
-		<h2>目前登入人員：${admin.administratorName}</h2>
+		<h2>目前登入人員：</h2>
+		<h2 class="adminname"></h2>
 		<div class="row d-flex justify-content-center align-content-center" style="text-align: center"
 			style="height: 600px;">
 			<table>
@@ -318,7 +310,7 @@
 
 		</div>
 	</div>
-	<footer>footer</footer>
+	<footer><img class="footer" src="./images/footer.png" alt="" /></footer>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
@@ -340,6 +332,7 @@
 		window.addEventListener("load", () => {
 
 
+			// 			一載入頁面即取得所有商家資料
 			fetch(url)
 				.then((res) => res.json())
 				.then((data) => {
@@ -348,29 +341,26 @@
 						map((e) => storeTemplate(e.storeID, e.storename, e.storeaddress, e.storephone, e.storeemail))
 						.join('');
 
-				})
+				});
 
-			// var nickname = session.getAttribute("nickname");
-			// $("p.nickname").innerHTML = nickname;
-			// console.log($("p.nickname").innerText);
+			document.querySelector(".adminname").innerHTML = sessionStorage.getItem('nickname');
+
+
 
 		});
 
-		let id, account, name, phone;
-
+		let id;
 		//選擊列表抓取店家編號
 		$(document).on("mouseover", ".storelist", function () {
 			id = $(this).find("td").eq(0).text();
 			console.log(id);
 		});
+		//將商家詳細資料代入燈箱中
 		$(document).on("click", ".storelist", function () {
 			fetch(url)
 				.then((res) => res.json())
 				.then((data) => {
 					console.log(data);
-					// document.querySelector("#store").innerHTML = data.
-					// 	map((e) => storeTemplate(e.storeID, e.storename, e.storeaddress, e.storephone, e.storeemail))
-					// 	.join('');
 					$("#storename").val(data[id - 1].storename);
 					$("#storeadd").val(data[id - 1].storeaddress);
 					$("#storephone").val(data[id - 1].storephone);
@@ -381,11 +371,6 @@
 					$("#adminaccount").val(data[id - 1].storeadminaccount);
 					$("#storetime").val(data[id - 1].storebuildtime);
 				})
-
-
-
-
-
 		});
 
 

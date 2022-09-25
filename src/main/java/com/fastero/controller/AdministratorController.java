@@ -81,11 +81,13 @@ public class AdministratorController extends HttpServlet {
 				AdministratorService adminSvc = new AdministratorService();
 				AdministratorVO admin = adminSvc.getOneAdmin(adminId);
 				
-
+				HttpSession session = req.getSession();
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					errorMsgs.add("\"請更正\"");
 					req.setAttribute("admin", admin); // 含有輸入格式錯誤的AdministratorVO物件,也存入req,記住登入者
+					session.setAttribute("nickname", admin.getAdministratorName());
+					session.setAttribute("admin", admin);
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/administrator/administrator_index.jsp");
 					failureView.forward(req, res);
@@ -99,6 +101,9 @@ public class AdministratorController extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("admin", admin); // 資料庫update成功後,正確的的AdministratorVO物件,存入req
+				
+				session.setAttribute("nickname", admin.getAdministratorName());
+				session.setAttribute("admin", admin);
 				String url = "/administrator/administrator_index.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
@@ -200,52 +205,49 @@ public class AdministratorController extends HttpServlet {
 		}
 		
 		
-		if ("login".equals(action)) {
+//		if ("login".equals(action)) {
+////			List<String> errorMsgs = new LinkedList<String>();
+////					req.setAttribute("errorMsgs", errorMsgs);
+//			// 獲取請求參數
+//			String account = req.getParameter("administratorAccount");
+//			String password = req.getParameter("administratorPassword");
+//			// 封裝admin對象
+//			AdministratorVO loginAdmin = new AdministratorVO();
+//			loginAdmin.setAdministratorAccount(account);
+//			loginAdmin.setAdministratorPassword(password);
+//			// 調用dao的login方法
+//			AdministratorDAO dao = new AdministratorDAO();
+//			AdministratorVO admin = dao.login(loginAdmin);
 //			List<String> errorMsgs = new LinkedList<String>();
-//					req.setAttribute("errorMsgs", errorMsgs);
-			// 獲取請求參數
-			String account = req.getParameter("administratorAccount");
-			String password = req.getParameter("administratorPassword");
-			// 封裝admin對象
-			AdministratorVO loginAdmin = new AdministratorVO();
-			loginAdmin.setAdministratorAccount(account);
-			loginAdmin.setAdministratorPassword(password);
-			// 調用dao的login方法
-			AdministratorDAO dao = new AdministratorDAO();
-			AdministratorVO admin = dao.login(loginAdmin);
-			List<String> errorMsgs = new LinkedList<String>();
-
-			// 判斷admin
-			if (admin.getAdministratorId() == null) {
-				// 登錄失敗
-				String url = "/administrator/login_administrator.jsp";
-				req.setAttribute("errorMsgs", errorMsgs);
-				// Store this set in the request scope, in case we need to
-				// send the ErrorPage view.
-				errorMsgs.add("帳號或密碼錯誤，請重新輸入");
-
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher successView = req.getRequestDispatcher(url);
-					successView.forward(req, res);
-					return;// 程式中斷
-				}
-			}else {
-				req.setAttribute("admin", admin);
-				req.setAttribute("errorMsgs", errorMsgs);
-				HttpSession session = req.getSession();
-				session.setAttribute("nickname", admin.getAdministratorName());
-				System.out.println(session.getAttribute("nickname"));
-			// 轉發
-			String url = "/administrator/administrator_index.jsp";
-
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-			}
-			
-			
-
-
-		}
+//
+//			// 判斷admin
+//			if (admin.getAdministratorId() == null) {
+//				// 登錄失敗
+//				String url = "/administrator/login_administrator.jsp";
+//				req.setAttribute("errorMsgs", errorMsgs);
+//				// Store this set in the request scope, in case we need to
+//				// send the ErrorPage view.
+//				errorMsgs.add("帳號或密碼錯誤，請重新輸入");
+//
+//				if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher successView = req.getRequestDispatcher(url);
+//					successView.forward(req, res);
+//					return;// 程式中斷
+//				}
+//			}else {
+//				req.setAttribute("admin", admin);
+//				req.setAttribute("errorMsgs", errorMsgs);
+////				HttpSession session = req.getSession();
+////				session.setAttribute("nickname", admin.getAdministratorName());
+////				session.setAttribute("admin", admin);
+////				System.out.println(session.getAttribute("nickname"));
+//			// 轉發
+//			String url = "/administrator/administrator_index.jsp";
+//
+//			RequestDispatcher successView = req.getRequestDispatcher(url);
+//			successView.forward(req, res);
+//			}
+//		}
 	}
 
 }
