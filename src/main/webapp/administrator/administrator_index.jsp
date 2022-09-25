@@ -415,45 +415,48 @@
 									});
 
 
-									account = "${ admin.administratorAccount }";
-									password = "${ admin.administratorPassword }";
+// 									account = "${ admin.administratorAccount }";
+// 									password = "${ admin.administratorPassword }";
 
 									function guard() {
 
 									}
 
 									function init() {
-										fetch('http://localhost:8081/TGA103G3/administrator/adminLogin', {
-											method: "post",
-											headers: { 'Content-Type': "application/json" },
-											body: JSON.stringify(
-												{
-													administratorAccount: account,
-												})
+// 										fetch('http://localhost:8081/TGA103G3/administrator/adminLogin', {
+// 											method: "post",
+// 											headers: { 'Content-Type': "application/json" },
+// 											body: JSON.stringify(
+// 												{
+// 													administratorAccount: account,
+// 												})
 
-										}).then(res => res.json()).then((data) => {
-											console.log(data.administratorName);
-											document.querySelector(".adminname").innerHTML = data.administratorName;
-										})
+// 										}).then(res => res.json()).then((data) => {
+// 											console.log(data.administratorName);
+// 											document.querySelector(".adminname").innerHTML = data.administratorName;
+// 										})
 										
 										
 
 									}
-
+									// 綁定登出按鈕，回到登入頁面
 									document.querySelector('#logout').addEventListener('click', () => {
 										fetch('http://localhost:8081/TGA103G3/administrator/AdminLogout').then(res => res.text).then();
 										window.location.href = 'http://localhost:8081/TGA103G3/administrator/login_administrator.jsp';
 									});
-
+									
+									// 暫存管理者名稱
 									sessionStorage.setItem('nickname', "${admin.administratorName}");
 									document.querySelector(".adminname").innerHTML = sessionStorage.getItem('nickname');
 									
+									// 綁定刪除按鈕
 									function onRemoveClick() {
 										if (!confirm('確定刪除?')) {
 											return false;
 										}
 										return true;
 									}
+									
 									window.addEventListener('load', init)
 								</script>
 
