@@ -64,7 +64,6 @@ public class AdministratorService {
 	
 
 	public AdministratorVO getlogin(AdministratorVO loginAdmin) {
-		// TODO Auto-generated method stub 
 		return dao.login(loginAdmin);
 	}
 }

@@ -2,10 +2,8 @@ package com.fastero.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import com.fastero.dao.impl.AdministratorDAO;
 import com.fastero.service.impl.AdministratorService;
-import com.fastero.service.impl.UserServiceIm;
 import com.fastero.vo.AdministratorVO;
 import com.google.gson.Gson;
 

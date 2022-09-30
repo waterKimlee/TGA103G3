@@ -12,8 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.eclipse.jdt.internal.compiler.batch.Main;
-
 import com.fastero.dao.intf.AdministratorDAOintf;
 import com.fastero.vo.AdministratorVO;
 
