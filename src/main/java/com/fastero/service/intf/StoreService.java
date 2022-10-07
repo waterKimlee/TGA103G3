@@ -6,7 +6,7 @@ import com.fastero.vo.StoreVO;
 
 //
 public interface StoreService {
-	List<StoreVO> findAllStore();
+	List<StoreVO> findAllStores();
 	
 	
 

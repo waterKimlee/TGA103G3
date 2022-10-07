@@ -148,6 +148,9 @@
 										width: 10%;
 										height: 40px;
 									}
+									.modal-body button{
+									width:120px;
+									}
 								</style>
 							</head>
 
@@ -305,13 +308,11 @@
 																placeholder="請輸入電話" required id="phone" name="administratorPhone"
 																value="${admin.administratorPhone}">
 														</div>
-														<input type="hidden" name="administratorRight" value="1">
 														<button type="submit" name="action" value="update">確認修改</button>
 
 													</form>
 													<div class="modal-footer"></div>
 												</div>
-												<div class="modal-footer"></div>
 											</div>
 										</div>
 									</div>
