@@ -183,28 +183,19 @@
 					</div>
 					<div class="modal-body">
 
-							<div class="form-group">
-								帳號：<input type="text" class="account form-control" readonly name="administratorAccount" id="account"
-									value="${admin.administratorAccount}">
-							</div>
-							<div class="form-group">
-								名稱：<input type="text" class="account form-control" maxlength="10" placeholder="請輸入名稱" required id="name"
-									name="administratorName" value="${admin.administratorName}">
-							</div>
-							<div class="form-group">
-								密碼：<input type="password" id="updateInputPassword" required maxlength="10" minlength="8"
-									class="account form-control" placeholder="請輸入新密碼" value="${admin.administratorPassword}" required
-									name="administratorPassword">
-							</div>
-							<div class="form-group">
-								確認密碼：<input type="password" id="updateConfirmPassword" required maxlength="10" minlength="8"
-									class="account form-control" placeholder="再次輸入密碼" required value="${admin.administratorPassword}"
-									onchange="if(document.getElementById('updateInputPassword').value != document.getElementById('updateConfirmPassword').value){setCustomValidity('密碼不吻合');}">
-							</div>
-							<div class="form-group">
-								電話：<input type="number" class="account form-control" minlength="8" maxlength="10" placeholder="請輸入電話"
-									required id="phone" name="administratorPhone" value="${admin.administratorPhone}">
-							</div>
+						<div class="form-group">
+							帳號：<input type="text" class="account form-control" readonly name="administratorAccount" id="account"
+								value="${admin.administratorAccount}">
+						</div>
+						<div class="form-group">
+							名稱：<input type="text" class="account form-control" maxlength="10" placeholder="請輸入名稱" required id="name"
+								name="administratorName" value="${admin.administratorName}">
+						</div>
+
+						<div class="form-group">
+							電話：<input type="number" class="account form-control" minlength="8" maxlength="10" placeholder="請輸入電話"
+								required id="phone" name="administratorPhone" value="${admin.administratorPhone}">
+						</div>
 
 						<div class="modal-footer"></div>
 					</div>
@@ -240,11 +231,33 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
 		document.querySelector(".adminname").innerHTML = sessionStorage.getItem('nickname');
-		
+
 		document.querySelector('#logout').addEventListener('click', () => {
 			fetch('http://localhost:8081/TGA103G3/administrator/AdminLogout').then(res => res.text).then();
 			window.location.href = 'http://localhost:8081/TGA103G3/administrator/login_administrator.jsp';
 		});
+
+		function init() {
+			fetch('http://localhost:8081/TGA103G3/AdminGetHistory')
+				.then((res) => res.json())
+				.then((data) => {
+					console.log(data);
+
+
+
+					// 將尚未處理及處理過的資料分開
+
+					// 審核過之店家清單
+					// document.querySelector("#store").innerHTML = storeList.
+					// 	map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail))
+					// 	.join('');
+
+
+				});
+
+		}
+
+		window.addEventListener('load', init);
 	</script>
 
 </body>

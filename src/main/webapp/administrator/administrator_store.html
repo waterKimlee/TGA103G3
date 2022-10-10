@@ -163,6 +163,18 @@
 			width: 10%;
 			height: 40px;
 		}
+
+		tbody {
+			cursor: pointer;
+		}
+
+		.unconfirm {
+			height: 30px;
+			width: 100px;
+			position: absolute;
+			left: 50%;
+			transform: translate(-50%);
+		}
 	</style>
 </head>
 
@@ -180,6 +192,7 @@
 
 
 	</header>
+	<!-- 各分頁連結 -->
 	<div class="container" style="background-color: rgb(188, 215, 208)">
 		<div class="row justify-content-center" style="width: 100%">
 			<div class="col-1"></div>
@@ -270,9 +283,11 @@
 						</div>
 
 					</div>
-					<div class="modal-footer"></div>
+					<div class="modal-footer">
+
+					</div>
 				</div>
-				<div class="modal-footer"></div>
+
 
 			</div>
 		</div>
@@ -281,8 +296,40 @@
 
 		<h2>目前登入人員：</h2>
 		<h2 class="adminname"></h2>
+
 		<div class="row d-flex justify-content-center align-content-center" style="text-align: center"
 			style="height: 600px;">
+			<hr>
+			<h2>未審核店家</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>店家編號</th>
+						<th>名稱</th>
+						<th>地址</th>
+						<th>電話</th>
+						<th>email</th>
+						<!-- <th>確認通過</th> -->
+						<!-- <th>修改</th>
+						<th>刪除</th> -->
+					</tr>
+				</thead>
+
+				<tbody id="unstore">
+					<!-- <tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr> -->
+				</tbody>
+
+			</table>
+
+
+			<hr>
+			<h2>已審核店家</h2>
 			<table>
 				<thead>
 					<tr>
@@ -315,7 +362,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 	<script>
-		function storeTemplate(storeID, storename, storeaddress, storephone, storeemail) {
+
+		// 商家列表模版
+		function storeTemplate(storeID, storename, storeaddress, storephone, storeemail, storeaccountstatus) {
 			return `<tr data-bs-toggle="modal"
 								data-bs-target="#storelist" class="storelist">
 
@@ -324,30 +373,13 @@
 					<td>${storeaddress}</td>
 					<td>${storephone}</td>
 					<td>${storeemail}</td>
+					
 				</tr>`
 
 		}
-
-		const url = "http://localhost:8081/TGA103G3/admingetstore"
-		window.addEventListener("load", () => {
+		// ${storeaccountstatus == 0 ? '<td><button class="unconfirm">通過</button></td>' : ''}
 
 
-			// 			一載入頁面即取得所有商家資料
-			fetch(url)
-				.then((res) => res.json())
-				.then((data) => {
-					console.log(data);
-					document.querySelector("#store").innerHTML = data.
-						map((e) => storeTemplate(e.storeID, e.storename, e.storeaddress, e.storephone, e.storeemail))
-						.join('');
-
-				});
-
-			document.querySelector(".adminname").innerHTML = sessionStorage.getItem('nickname');
-
-
-
-		});
 
 		let id;
 		//選擊列表抓取店家編號
@@ -361,23 +393,81 @@
 				.then((res) => res.json())
 				.then((data) => {
 					console.log(data);
-					$("#storename").val(data[id - 1].storename);
-					$("#storeadd").val(data[id - 1].storeaddress);
-					$("#storephone").val(data[id - 1].storephone);
-					$("#storeemail").val(data[id - 1].storeemail);
-					$("#adminname").val(data[id - 1].storeadminname);
-					$("#adminid").val(data[id - 1].storeadminID);
-					$("#adminphone").val(data[id - 1].storeadminphone);
-					$("#adminaccount").val(data[id - 1].storeadminaccount);
-					$("#storetime").val(data[id - 1].storebuildtime);
+					$("#storename").val(data[id - 1].storeName);
+					$("#storeadd").val(data[id - 1].storeAddress);
+					$("#storephone").val(data[id - 1].storePhone);
+					$("#storeemail").val(data[id - 1].storeEmail);
+					$("#adminname").val(data[id - 1].storeAdminName);
+					$("#adminid").val(data[id - 1].storeAdminId);
+					$("#adminphone").val(data[id - 1].storeAdminPhone);
+					$("#adminaccount").val(data[id - 1].storeAdminAccount);
+					$("#storetime").val(data[id - 1].storeBuildTime);
+
+					if (data[id - 1].storeAccountStatus == 0) {
+						document.querySelector('.modal-footer').innerHTML = `<button class="unconfirm">通過審核</button>`
+
+					}
 				})
 		});
 
+		// 修改店家審核狀態
+		$('.modal-footer').on("click", function () {
+			fetch('http://localhost:8081/TGA103G3/AdminSetStore', {
+				method: "post",
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					storeId: id
+				})
+			}).then((res) => res.text).then();
+			window.location.reload();
+		});
+
+		// 登出
 		document.querySelector('#logout').addEventListener('click', () => {
 			fetch('http://localhost:8081/TGA103G3/administrator/AdminLogout').then(res => res.text).then();
 			window.location.href = 'http://localhost:8081/TGA103G3/administrator/login_administrator.jsp';
 		});
 
+
+		const url = "http://localhost:8081/TGA103G3/admingetstore"
+		window.addEventListener("load", () => {
+
+
+			// 			一載入頁面即取得所有商家資料
+			fetch(url)
+				.then((res) => res.json())
+				.then((data) => {
+					console.log(data);
+
+					let storeList = [];
+					let unstoreList = [];
+
+					// 將尚未處理及處理過的資料分開
+					for (i = 0; i < data.length; i++) {
+						if (data[i].storeAccountStatus == 1) {
+							storeList.push(data[i])
+						} else {
+							unstoreList.push(data[i])
+						}
+					}
+					// 審核過之店家清單
+					document.querySelector("#store").innerHTML = storeList.
+						map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail))
+						.join('');
+
+					// 未審核之店家清單
+					document.querySelector("#unstore").innerHTML = unstoreList.
+						map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail, e.storeAccountStatus))
+						.join('');
+				});
+
+
+			// 取得管理者名稱	
+			document.querySelector(".adminname").innerHTML = sessionStorage.getItem('nickname');
+
+
+
+		});
 	</script>
 
 </body>

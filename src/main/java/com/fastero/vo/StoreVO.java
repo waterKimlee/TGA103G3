@@ -8,86 +8,55 @@ public class StoreVO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Integer storeID;
-	private String storename;
-	private String storeaddress;
+	private Integer storeId;
+	private String storeName;
+	private String storeAddress;
 	private String longitude;
 	private String latitude;
-	private String storephone;
-	private String storeemail;
-	private String storeadminaccount;
-	private String storeadminpassword;
-	private String storeadminphone;
-	private String storeadminaddress;
-	private Blob storeimg;
-	private String storeintroduction;
-	private byte storeopenstatus;
-	private Integer storeaccountstatus;
-	private String storeadminname;
-	private String storeadminID;
-	private Date storebuildtime;
-	private Date storeupdtetime;
-	private Integer storecommentnumber;
-	private Integer storetotalstar;
-	private String storebusinesstime;
+	private String storePhone;
+	private String storeEmail;
+	private String storeAdminAccount;
+	private String storeAdminPassword;
+	private String storeAdminPhone;
+	private String storeAdminAddress;
+	private Blob storeImg;
+	private String storeIntroduction;
+	private byte storeOpenStatus;
+	private Integer storeAccountStatus;
+	private String storeAdminName;
+	private String storeAdminId;
+	private Date storeBuildTime;
+	private Date storeUpdateTime;
+	private Integer storeCommentNumber;
+	private Integer storeTotalStar;
+	private String storeBusinessTime;
 	
 	public StoreVO() {
 		
 	}
 
-	public StoreVO(Integer storeID, String storename, String storeaddress, String longitude, String latitude,
-			String storephone, String storeemail, String storeadminaccount, String storeadminpassword,
-			String storeadminphone, String storeadminaddress, Blob storeimg, String storeintroduction,
-			byte storeopenstatus, Integer storeaccountstatus, String storeadminname, String storeadminID,
-			Date storebuildtime, Date storeupdtetime, Integer storecommentnumber, Integer storetotalstar,
-			String storebusinesstime) {
-		super();
-		this.storeID = storeID;
-		this.storename = storename;
-		this.storeaddress = storeaddress;
-		this.longitude = longitude;
-		this.latitude = latitude;
-		this.storephone = storephone;
-		this.storeemail = storeemail;
-		this.storeadminaccount = storeadminaccount;
-		this.storeadminpassword = storeadminpassword;
-		this.storeadminphone = storeadminphone;
-		this.storeadminaddress = storeadminaddress;
-		this.storeimg = storeimg;
-		this.storeintroduction = storeintroduction;
-		this.storeopenstatus = storeopenstatus;
-		this.storeaccountstatus = storeaccountstatus;
-		this.storeadminname = storeadminname;
-		this.storeadminID = storeadminID;
-		this.storebuildtime = storebuildtime;
-		this.storeupdtetime = storeupdtetime;
-		this.storecommentnumber = storecommentnumber;
-		this.storetotalstar = storetotalstar;
-		this.storebusinesstime = storebusinesstime;
+	public Integer getStoreId() {
+		return storeId;
 	}
 
-	public Integer getStoreID() {
-		return storeID;
+	public void setStoreId(Integer storeId) {
+		this.storeId = storeId;
 	}
 
-	public void setStoreID(Integer storeID) {
-		this.storeID = storeID;
+	public String getStoreName() {
+		return storeName;
 	}
 
-	public String getStorename() {
-		return storename;
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
 	}
 
-	public void setStorename(String storename) {
-		this.storename = storename;
+	public String getStoreAddress() {
+		return storeAddress;
 	}
 
-	public String getStoreaddress() {
-		return storeaddress;
-	}
-
-	public void setStoreaddress(String storeaddress) {
-		this.storeaddress = storeaddress;
+	public void setStoreAddress(String storeAddress) {
+		this.storeAddress = storeAddress;
 	}
 
 	public String getLongitude() {
@@ -106,141 +75,179 @@ public class StoreVO implements Serializable{
 		this.latitude = latitude;
 	}
 
-	public String getStorephone() {
-		return storephone;
+	public String getStorePhone() {
+		return storePhone;
 	}
 
-	public void setStorephone(String storephone) {
-		this.storephone = storephone;
+	public void setStorePhone(String storePhone) {
+		this.storePhone = storePhone;
 	}
 
-	public String getStoreemail() {
-		return storeemail;
+	public String getStoreEmail() {
+		return storeEmail;
 	}
 
-	public void setStoreemail(String storeemail) {
-		this.storeemail = storeemail;
+	public void setStoreEmail(String storeEmail) {
+		this.storeEmail = storeEmail;
 	}
 
-	public String getStoreadminaccount() {
-		return storeadminaccount;
+	public String getStoreAdminAccount() {
+		return storeAdminAccount;
 	}
 
-	public void setStoreadminaccount(String storeadminaccount) {
-		this.storeadminaccount = storeadminaccount;
+	public void setStoreAdminAccount(String storeAdminAccount) {
+		this.storeAdminAccount = storeAdminAccount;
 	}
 
-	public String getStoreadminpassword() {
-		return storeadminpassword;
+	public String getStoreAdminPassword() {
+		return storeAdminPassword;
 	}
 
-	public void setStoreadminpassword(String storeadminpassword) {
-		this.storeadminpassword = storeadminpassword;
+	public void setStoreAdminPassword(String storeAdminPassword) {
+		this.storeAdminPassword = storeAdminPassword;
 	}
 
-	public String getStoreadminphone() {
-		return storeadminphone;
+	public String getStoreAdminPhone() {
+		return storeAdminPhone;
 	}
 
-	public void setStoreadminphone(String storeadminphone) {
-		this.storeadminphone = storeadminphone;
+	public void setStoreAdminPhone(String storeAdminPhone) {
+		this.storeAdminPhone = storeAdminPhone;
 	}
 
-	public String getStoreadminaddress() {
-		return storeadminaddress;
+	public String getStoreAdminAddress() {
+		return storeAdminAddress;
 	}
 
-	public void setStoreadminaddress(String storeadminaddress) {
-		this.storeadminaddress = storeadminaddress;
+	public void setStoreAdminAddress(String storeAdminAddress) {
+		this.storeAdminAddress = storeAdminAddress;
 	}
 
-	public Blob getStoreimg() {
-		return storeimg;
+	public Blob getStoreImg() {
+		return storeImg;
 	}
 
-	public void setStoreimg(Blob blob) {
-		this.storeimg = blob;
+	public void setStoreImg(Blob storeImg) {
+		this.storeImg = storeImg;
 	}
 
-	public String getStoreintroduction() {
-		return storeintroduction;
+	public String getStoreIntroduction() {
+		return storeIntroduction;
 	}
 
-	public void setStoreintroduction(String storeintroduction) {
-		this.storeintroduction = storeintroduction;
+	public void setStoreIntroduction(String storeIntroduction) {
+		this.storeIntroduction = storeIntroduction;
 	}
 
-	public byte getStoreopenstatus() {
-		return storeopenstatus;
+	public byte getStoreOpenStatus() {
+		return storeOpenStatus;
 	}
 
-	public void setStoreopenstatus(byte storeopenstatus) {
-		this.storeopenstatus = storeopenstatus;
+	public void setStoreOpenStatus(byte storeOpenStatus) {
+		this.storeOpenStatus = storeOpenStatus;
 	}
 
-	public Integer getStoreaccountstatus() {
-		return storeaccountstatus;
+
+
+	public Integer getStoreAccountStatus() {
+		return storeAccountStatus;
 	}
 
-	public void setStoreaccountstatus(Integer storeaccountstatus) {
-		this.storeaccountstatus = storeaccountstatus;
+	public void setStoreAccountStatus(Integer storeAccountStatus) {
+		this.storeAccountStatus = storeAccountStatus;
 	}
 
-	public String getStoreadminname() {
-		return storeadminname;
+	public String getStoreAdminName() {
+		return storeAdminName;
 	}
 
-	public void setStoreadminname(String storeadminname) {
-		this.storeadminname = storeadminname;
+	public void setStoreAdminName(String storeAdminName) {
+		this.storeAdminName = storeAdminName;
 	}
 
-	public String getStoreadminID() {
-		return storeadminID;
+	public String getStoreAdminId() {
+		return storeAdminId;
 	}
 
-	public void setStoreadminID(String storeadminID) {
-		this.storeadminID = storeadminID;
+	public void setStoreAdminId(String storeAdminId) {
+		this.storeAdminId = storeAdminId;
 	}
 
-	public Date getStorebuildtime() {
-		return storebuildtime;
+	public Date getStoreBuildTime() {
+		return storeBuildTime;
 	}
 
-	public void setStorebuildtime(Date storebuildtime) {
-		this.storebuildtime = storebuildtime;
+	public void setStoreBuildTime(Date storeBuildTime) {
+		this.storeBuildTime = storeBuildTime;
 	}
 
-	public Date getStoreupdtetime() {
-		return storeupdtetime;
+	public Date getStoreUpdateTime() {
+		return storeUpdateTime;
 	}
 
-	public void setStoreupdtetime(Date storeupdtetime) {
-		this.storeupdtetime = storeupdtetime;
+	public void setStoreUpdateTime(Date storeUpdateTime) {
+		this.storeUpdateTime = storeUpdateTime;
 	}
 
-	public Integer getStorecommentnumber() {
-		return storecommentnumber;
+	public Integer getStoreCommentNumber() {
+		return storeCommentNumber;
 	}
 
-	public void setStorecommentnumber(Integer storecommentnumber) {
-		this.storecommentnumber = storecommentnumber;
+	public void setStoreCommentNumber(Integer storeCommentNumber) {
+		this.storeCommentNumber = storeCommentNumber;
 	}
 
-	public Integer getStoretotalstar() {
-		return storetotalstar;
+	public Integer getStoreTotalStar() {
+		return storeTotalStar;
 	}
 
-	public void setStoretotalstar(Integer storetotalstar) {
-		this.storetotalstar = storetotalstar;
+	public void setStoreTotalStar(Integer storeTotalStar) {
+		this.storeTotalStar = storeTotalStar;
 	}
 
-	public String getStorebusinesstime() {
-		return storebusinesstime;
+	public String getStoreBusinessTime() {
+		return storeBusinessTime;
 	}
 
-	public void setStorebusinesstime(String storebusinesstime) {
-		this.storebusinesstime = storebusinesstime;
+	public void setStoreBusinessTime(String storeBusinessTime) {
+		this.storeBusinessTime = storeBusinessTime;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public StoreVO(Integer storeId, String storeName, String storeAddress, String longitude, String latitude,
+			String storePhone, String storeEmail, String storeAdminAccount, String storeAdminPassword,
+			String storeAdminPhone, String storeAdminAddress, Blob storeImg, String storeIntroduction,
+			byte storeOpenStatus, Integer storeAccountAtatus, String storeAdminName, String storeAdminId,
+			Date storeBuildTime, Date storeUpdateTime, Integer storeCommentNumber, Integer storeTotalStar,
+			String storeBusinessTime) {
+		super();
+		this.storeId = storeId;
+		this.storeName = storeName;
+		this.storeAddress = storeAddress;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.storePhone = storePhone;
+		this.storeEmail = storeEmail;
+		this.storeAdminAccount = storeAdminAccount;
+		this.storeAdminPassword = storeAdminPassword;
+		this.storeAdminPhone = storeAdminPhone;
+		this.storeAdminAddress = storeAdminAddress;
+		this.storeImg = storeImg;
+		this.storeIntroduction = storeIntroduction;
+		this.storeOpenStatus = storeOpenStatus;
+		this.storeAccountStatus = storeAccountAtatus;
+		this.storeAdminName = storeAdminName;
+		this.storeAdminId = storeAdminId;
+		this.storeBuildTime = storeBuildTime;
+		this.storeUpdateTime = storeUpdateTime;
+		this.storeCommentNumber = storeCommentNumber;
+		this.storeTotalStar = storeTotalStar;
+		this.storeBusinessTime = storeBusinessTime;
+	}
+
 	
 
 }

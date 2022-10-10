@@ -1,8 +1,11 @@
 package com.fastero.service.impl;
 
+import java.util.List;
+
 import com.fastero.common.Result;
 import com.fastero.dao.impl.OrderMasterDAOIm;
 import com.fastero.service.intf.OrderMasterServiceIn;
+import com.fastero.vo.OrderMasterVO;
 
 public class OrderMasterServiceIm implements OrderMasterServiceIn {
 
@@ -14,12 +17,20 @@ public class OrderMasterServiceIm implements OrderMasterServiceIn {
 		R = new Result();
 	}
 
+//	@Override
+//	public Result getAll() {
+//		try {
+//			return R.success(DAO.getAll());
+//		} catch (Exception e) {
+//			return R.fail(e.toString());
+//		}
+//	}
 	@Override
-	public Result getAll() {
+	public List<OrderMasterVO> getAll() {
 		try {
-			return R.success(DAO.getAll());
+			return DAO.getAll();
 		} catch (Exception e) {
-			return R.fail(e.toString());
+			return null;
 		}
 	}
 
