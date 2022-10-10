@@ -174,74 +174,46 @@
 	<h1>檢舉信件</h1>
 	<hr>
 
-	<div class="modal fade" id="updateAdmin">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<hr>
-					<h3>#</h3>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-				<div class="modal-body">
-
-					<form action="<%=request.getContextPath()%>/administrator/admin.do" method="post">
-						<div class="form-group">
-							<input type="hidden" class="account form-control" name="adminId" value="${admin.administratorId}">
-						</div>
-						<div class="form-group">
-							<input type="hidden" class="account form-control" id="id" name="administratorId"
-								value="${admin.administratorId}">
-						</div>
-						<div class="form-group">
-							帳號：<input type="text" class="account form-control" readonly name="administratorAccount" id="account"
-								value="${admin.administratorAccount}">
-						</div>
-						<div class="form-group">
-							名稱：<input type="text" class="account form-control" maxlength="10" placeholder="請輸入名稱" required id="name"
-								name="administratorName" value="${admin.administratorName}">
-						</div>
-						<div class="form-group">
-							密碼：<input type="password" id="updateInputPassword" required maxlength="10" minlength="8"
-								class="account form-control" placeholder="請輸入新密碼" value="${admin.administratorPassword}" required
-								name="administratorPassword">
-						</div>
-						<div class="form-group">
-							確認密碼：<input type="password" id="updateConfirmPassword" required maxlength="10" minlength="8"
-								class="account form-control" placeholder="再次輸入密碼" required value="${admin.administratorPassword}"
-								onchange="if(document.getElementById('updateInputPassword').value != document.getElementById('updateConfirmPassword').value){setCustomValidity('密碼不吻合');}">
-						</div>
-						<div class="form-group">
-							電話：<input type="number" class="account form-control" minlength="8" maxlength="10" placeholder="請輸入電話"
-								required id="phone" name="administratorPhone" value="${admin.administratorPhone}">
-						</div>
-						<input type="hidden" name="administratorRight" value="1">
-						<button type="submit" name="action" value="update">確認修改</button>
-
-					</form>
-					<div class="modal-footer"></div>
-				</div>
-				<div class="modal-footer"></div>
-			</div>
-		</div>
-	</div>
-
-
-
 	<h2>目前登入人員：</h2>
 	<h2 class="adminname"></h2>
 	<div class="row d-flex justify-content-center align-content-center" style="text-align: center" style="height: 600px;">
+		<hr>
+		<h2>尚未處理</h2>
 		<table>
-			<tr>
-				<th>編號</th>
-				<th>帳號</th>
-				<th>名稱</th>
-				<th>電話</th>
-				<th>建立時間</th>
-				<th>修改</th>
-				<th>刪除</th>
-			</tr>
+			<thead>
+				<tr>
+					<th>編號</th>
+					<th>會員</th>
+					<th>被檢舉店家</th>
+					<th>檢舉事由</th>
+					<th>處理狀態</th>
+					<th>時間</th>
+				</tr>
+			</thead>
+
+			<tbody id="unreport">
+
+			</tbody>
+		</table>
 
 
+		<hr>
+		<h2>已處理</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>編號</th>
+					<th>會員</th>
+					<th>被檢舉店家</th>
+					<th>檢舉事由</th>
+					<th>處理狀態</th>
+					<th>時間</th>
+				</tr>
+			</thead>
+
+			<tbody id="report">
+
+			</tbody>
 		</table>
 
 	</div>
@@ -250,12 +222,59 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script>
+		// 管理者名稱
 		document.querySelector(".adminname").innerHTML = sessionStorage.getItem('nickname');
-		
+		// 登出
 		document.querySelector('#logout').addEventListener('click', () => {
 			fetch('http://localhost:8081/TGA103G3/administrator/AdminLogout').then(res => res.text).then();
 			window.location.href = 'http://localhost:8081/TGA103G3/administrator/login_administrator.jsp';
 		});
+
+		function reportTemplate(reportId, userId, storeId, reportText, reportStatus, reportTime) {
+			return `<tr>
+						<td>${reportId}</td>
+						<td>${userId}</td>
+						<td>${storeId}</td>
+						<td>${reportText}</td>
+						<td>${reportStatus == 1 ? '已處理' : '未處理'}</td>
+						<td>${reportTime}</td>
+					</tr>`
+
+		}
+
+		window.addEventListener('load', () => {
+
+			fetch("http://localhost:8081/TGA103G3/AdminGetReport")
+				.then((res) => res.json())
+				.then((data) => {
+					// 					console.log(data);
+					console.log(data[1].reportStatus);
+					console.log(data.length);
+					console.log("tttt");
+
+					let reportList = [];
+					let unreportList = [];
+
+					// 將尚未處理及處理過的資料分開
+					for (i = 0; i < data.length; i++) {
+						if (data[i].reportStatus == 1) {
+							reportList.push(data[i])
+						} else {
+							unreportList.push(data[i])
+						}
+					}
+
+					console.log(reportList);
+					console.log(unreportList);
+					// 尚未處理資料
+					document.querySelector("#unreport").innerHTML = unreportList.map((e) => reportTemplate(e.reportId, e.userId, e.storeId, e.reportText, e.reportStatus, e.reportTime)).join('');
+
+					// 處理過資料
+					document.querySelector("#report").innerHTML = reportList.map((e) => reportTemplate(e.reportId, e.userId, e.storeId, e.reportText, e.reportStatus, e.reportTime)).join('');
+
+				})
+
+		})
 	</script>
 
 </body>

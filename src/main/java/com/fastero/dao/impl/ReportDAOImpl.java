@@ -23,7 +23,7 @@ public class ReportDAOImpl implements ReportDAOIntf {
 		List<ReportVO> list = new ArrayList<ReportVO>();
 
 		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/FASTERO", "root", "password");
-				PreparedStatement ps = con.prepareStatement(UserSQL.GET_ALL);) {
+				PreparedStatement ps = con.prepareStatement(GET_ALL_STMT);) {
 			System.out.println("連線成功");
 			try (ResultSet rs = ps.executeQuery()) {
 				ReportVO vo;
@@ -35,7 +35,7 @@ public class ReportDAOImpl implements ReportDAOIntf {
 					vo.setReportId(rs.getInt("report_id"));
 					vo.setUserId(rs.getInt("user_id"));
 					vo.setStoreId(rs.getInt("store_id"));
-					vo.setReportTime(rs.getObject("report_time", LocalDateTime.class));
+					vo.setReportTime(rs.getDate("report_time"));
 					vo.setReportText(rs.getString("report_text"));
 					vo.setReportStatus(rs.getInt("report_status"));
 

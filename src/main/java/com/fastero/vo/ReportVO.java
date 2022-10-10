@@ -1,6 +1,6 @@
 package com.fastero.vo;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 public class ReportVO {
 
@@ -9,10 +9,9 @@ public class ReportVO {
 	private Integer reportId;
 	private Integer userId; 
 	private Integer storeId;
-	private LocalDateTime reportTime;
+	private Date reportTime;
 	private String reportText;
 	private Integer reportStatus;
-	
 	public Integer getReportId() {
 		return reportId;
 	}
@@ -31,11 +30,11 @@ public class ReportVO {
 	public void setStoreId(Integer storeId) {
 		this.storeId = storeId;
 	}
-	public LocalDateTime getReportTime() {
+	public Date getReportTime() {
 		return reportTime;
 	}
-	public void setReportTime(LocalDateTime localDateTime) {
-		this.reportTime = localDateTime;
+	public void setReportTime(Date reportTime) {
+		this.reportTime = reportTime;
 	}
 	public String getReportText() {
 		return reportText;
@@ -49,5 +48,6 @@ public class ReportVO {
 	public void setReportStatus(Integer reportStatus) {
 		this.reportStatus = reportStatus;
 	}
+	
 	
 }

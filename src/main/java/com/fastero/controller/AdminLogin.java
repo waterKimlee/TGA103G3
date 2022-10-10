@@ -24,54 +24,35 @@ import com.google.gson.Gson;
 @WebServlet("/administrator/adminLogin")
 public class AdminLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Gson _gson = new Gson();
-	private AdministratorService service = new AdministratorService();
+//	private Gson _gson = new Gson();
+//	private AdministratorService service = new AdministratorService();
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AdminLogin() {
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		setHeaders(res);
-		doGet(req, res);
-		res.getWriter().append("Served at: ").append(req.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		setHeaders(res);
 
 		String account = req.getParameter("administratorAccount");
 		String password = req.getParameter("administratorPassword");
 
+//		System.out.println(account);
+//		System.out.println(password);
+
 		AdministratorDAO dao = new AdministratorDAO();
-		
-		if (password == null) {
-			// Read POST
-			BufferedReader read = req.getReader();
-			// 存字串
-			String json = read.readLine();
 
-			AdministratorVO adminVo = _gson.fromJson(json, AdministratorVO.class);
-
-			account = adminVo.getAdministratorAccount();
-			password = adminVo.getAdministratorPassword();
-			AdministratorVO admin = dao.login(adminVo);
-			
-			res.getWriter().print(_gson.toJson(admin));
-			
-		}
-
-		
+//		if (password == null) {
+//			// Read POST
+//			BufferedReader read = req.getReader();
+//			// 存字串
+//			String json = read.readLine();
+//
+//			AdministratorVO adminVo = _gson.fromJson(json, AdministratorVO.class);
+//
+//			account = adminVo.getAdministratorAccount();
+//			password = adminVo.getAdministratorPassword();
+//			AdministratorVO admin = dao.login(adminVo);
+//			
+//			res.getWriter().print(_gson.toJson(admin));
+//			
+//		}
 
 		// 封裝admin對象
 		AdministratorVO loginAdmin = new AdministratorVO();
@@ -89,9 +70,9 @@ public class AdminLogin extends HttpServlet {
 			errorMsgs.add("帳號或密碼錯誤，請重新輸入");
 
 //			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-				return;// 程式中斷
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+			return;// 程式中斷
 //			}
 		} else {
 //			req.setAttribute("admin", admin);
@@ -99,16 +80,15 @@ public class AdminLogin extends HttpServlet {
 			HttpSession session = req.getSession();
 //			session.setAttribute("nickname", admin.getAdministratorName());
 			session.setAttribute("admin", admin);
-			
+
 			System.out.println(session.getAttribute("nickname"));
-			
-		// 轉發
-		String url = "/administrator/administrator_index.jsp";
 
-		RequestDispatcher successView = req.getRequestDispatcher(url);
-		successView.forward(req, res);
+			// 轉發
+			String url = "/administrator/administrator_index.jsp";
 
-			
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+
 		}
 
 	}
