@@ -26,6 +26,8 @@ import javax.websocket.Session;
 
 import org.apache.tomcat.util.http.fileupload.util.mime.MimeUtility;
 
+import com.fastero.service.impl.MailService;
+import com.fastero.service.impl.ReportServiceImpl;
 import com.mysql.cj.protocol.Message;
 
 /**
@@ -37,7 +39,32 @@ public class AdminSendMail extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
+		int reportId = Integer.parseInt(request.getParameter("reportId")); 
+		String userName = request.getParameter("userName");
+		String userAccount = request.getParameter("userAccount");
+		String mailText = request.getParameter("mailText");
+		
+		System.out.println(reportId);
+		System.out.println(userName);
+		System.out.println(userAccount);
+		System.out.println(mailText);
+		System.out.println("AAAA");
+		
+		String subject = "快點享官網已收到您的檢舉信件";
 
+		String messageText = userName + "您好！ \n" + mailText + "\n" + " 快點享官網敬上";
+		
+		MailService mailService = new MailService();
+		mailService.sendMail(userAccount, subject, messageText);
+		
+		// 更改檢舉信件為已處理
+		ReportServiceImpl reportSvc = new ReportServiceImpl();
+		reportSvc.updateReport(reportId);
+		
+		String url = "http://localhost:8081/TGA103G3/administrator/administrator_report.html";
+		response.sendRedirect(url);
 	}
 }
 

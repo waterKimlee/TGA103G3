@@ -234,7 +234,7 @@
 				.then((res) => res.json())
 				.then((data) => {
 					console.log(data);
-					document.querySelector("#user").innerHTML = data.Result.map((e) => userTemplate(e.UserId, e.UserAccount, e.UserName, e.UserPhone))
+					document.querySelector("#user").innerHTML = data.map((e) => userTemplate(e.UserId, e.UserAccount, e.UserName, e.UserPhone))
 						.join('');
 				})
 			document.querySelector(".adminname").innerHTML = sessionStorage.getItem('nickname');

@@ -1,6 +1,6 @@
 package com.fastero.vo;
 
-public class OrderMasterVO {
+public class HistoryVO {
 //		order_id, user_id, store_id, order_status, order_amount, order_time, update_time, order_remark
 	private Integer orderId;
 	private Integer userId;
@@ -10,6 +10,24 @@ public class OrderMasterVO {
 	private String orderTime;
 	private String updateTime;
 	private String orderRemark;
+	private String storeName;
+	private String userName;
+
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public Integer getOrderId() {
 		return orderId;

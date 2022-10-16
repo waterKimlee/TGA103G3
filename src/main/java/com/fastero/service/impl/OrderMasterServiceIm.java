@@ -5,6 +5,7 @@ import java.util.List;
 import com.fastero.common.Result;
 import com.fastero.dao.impl.OrderMasterDAOIm;
 import com.fastero.service.intf.OrderMasterServiceIn;
+import com.fastero.vo.HistoryVO;
 import com.fastero.vo.OrderMasterVO;
 
 public class OrderMasterServiceIm implements OrderMasterServiceIn {
@@ -29,6 +30,14 @@ public class OrderMasterServiceIm implements OrderMasterServiceIn {
 	public List<OrderMasterVO> getAll() {
 		try {
 			return DAO.getAll();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public List<HistoryVO> getAllHistory() {
+		try {
+			return DAO.getAllHistory();
 		} catch (Exception e) {
 			return null;
 		}

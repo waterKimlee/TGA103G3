@@ -30,7 +30,7 @@ public class AdminGetHistory extends HttpServlet {
 
 		List<Object> list = new ArrayList<>() ;
 		
-		list.add(orderMSvc.getAll());
+		list.add(orderMSvc.getAllHistory());
 		list.add(orderDSvc.getAll());
 		list.add(productSvc.getAllProduct());
 		

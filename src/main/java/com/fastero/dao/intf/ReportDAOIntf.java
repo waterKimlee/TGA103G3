@@ -13,4 +13,7 @@ public interface ReportDAOIntf {
 	
     public void update(ReportVO reportVO) throws Exception;
 	
+    public ReportVO getById(Integer id) throws Exception;
+    
+    public Integer updateStatus(ReportVO vo) throws Exception;
 }

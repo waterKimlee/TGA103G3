@@ -21,7 +21,6 @@ public class ReportServiceImpl implements ReportServiceIntf{
 		try {
 			return dao.getAll();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -43,21 +42,31 @@ public class ReportServiceImpl implements ReportServiceIntf{
 		
 	}
 
-	@Override
-	public void updateReport(int reportId, int userId, int storeId, String reportText, Integer reportStatus) {
+	public void updateReport(int reportId) {
 		ReportVO vo = new ReportVO();
 		vo.setReportId(reportId);
-		vo.setUserId(userId);
-		vo.setStoreId(storeId);
-		vo.setReportText(reportText);
-		vo.setReportStatus(reportStatus);
+		
 		
 		try {
-			dao.update(vo);
+			dao.updateStatus(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+//	public void updateReport(int reportId, int userId, int storeId, String reportText, Integer reportStatus) {
+//		ReportVO vo = new ReportVO();
+//		vo.setReportId(reportId);
+//		vo.setUserId(userId);
+//		vo.setStoreId(storeId);
+//		vo.setReportText(reportText);
+//		vo.setReportStatus(reportStatus);
+//		
+//		try {
+//			dao.update(vo);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	
 

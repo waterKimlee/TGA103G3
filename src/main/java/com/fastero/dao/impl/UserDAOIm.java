@@ -49,7 +49,7 @@ public class UserDAOIm implements UserDAOIn {
 					vo.setUserPassword(rs.getString("user_password"));
 					vo.setUserName(rs.getString("user_name"));
 					vo.setUserPhone(rs.getString("user_phone"));
-					vo.setUserBuildTime(rs.getObject("user_build_time", LocalDateTime.class));
+					vo.setUserBuildTime(rs.getDate("user_build_time"));
 //					System.out.println(vo.getUserBuildTime());
 					vo.setUserStatus(rs.getByte("user_status"));
 

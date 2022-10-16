@@ -1,10 +1,13 @@
 package com.fastero.service.impl;
 
+import java.util.List;
+
 import com.fastero.common.Result;
 import com.fastero.dao.impl.UserDAOIm;
 import com.fastero.service.intf.UserServiceIn;
+import com.fastero.vo.UserVO;
 
-public class UserServiceIm implements UserServiceIn{
+public class UserServiceIm implements UserServiceIn {
 
 	private UserDAOIm DAO;
 	// RESTFUL
@@ -15,13 +18,23 @@ public class UserServiceIm implements UserServiceIn{
 		R = new Result();
 	}
 
-	@Override
-	public Result getAll() {
+//	@Override
+//	public Result getAll() {
+//		try {
+//			return R.success(DAO.getAll());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return R.fail(e.toString());
+//		}
+//	}
+
+	public List<UserVO> getAll() {
+
 		try {
-			return R.success(DAO.getAll());
+			return DAO.getAll();
 		} catch (Exception e) {
 			e.printStackTrace();
-			return R.fail(e.toString());
+			return null;
 		}
 	}
 

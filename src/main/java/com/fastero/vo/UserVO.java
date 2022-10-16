@@ -1,17 +1,24 @@
 package com.fastero.vo;
 
-import java.time.LocalDateTime;
 
-public class UserVO {
+import java.io.Serializable;
+import java.sql.Date;
+
+
+public class UserVO implements Serializable{
 	
 	//'userId', 'userAccount', 'userPassword', 'userName', 'userPhone', 'userBuildTime', 'userStatus'
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int userId;
 	private String userAccount;
 	private String userPassword;
 	private String userName;
 	private String userPhone;
-	private LocalDateTime userBuildTime;
+	private Date userBuildTime;
 	private byte userStatus;
 	
 	public int getUserId() {
@@ -44,10 +51,11 @@ public class UserVO {
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
 	}
-	public LocalDateTime getUserBuildTime() {
+	
+	public Date getUserBuildTime() {
 		return userBuildTime;
 	}
-	public void setUserBuildTime(LocalDateTime userBuildTime) {
+	public void setUserBuildTime(Date userBuildTime) {
 		this.userBuildTime = userBuildTime;
 	}
 	public byte getUserStatus() {

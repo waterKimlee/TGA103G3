@@ -152,7 +152,10 @@
 			position: absolute;
 			left: 50%;
 			transform: translate(-50%);
+		}
 
+		.modal-footer {
+			height: 40px;
 		}
 
 		.col-10>input {
@@ -215,6 +218,7 @@
 		</div>
 		<hr>
 		<h1>商家管理</h1>
+		<h3>點擊列表查看及審核</h3>
 		<hr>
 		<!-- 商家明細燈箱 -->
 		<div class="modal fade" id="storelist">
@@ -377,14 +381,14 @@
 				</tr>`
 
 		}
-		// ${storeaccountstatus == 0 ? '<td><button class="unconfirm">通過</button></td>' : ''}
+
 
 
 
 		let id;
 		//選擊列表抓取店家編號
 		$(document).on("mouseover", ".storelist", function () {
-			id = $(this).find("td").eq(0).text();
+			id = $(this).find("td").eq(0).text() - 1;
 			console.log(id);
 		});
 		//將商家詳細資料代入燈箱中
@@ -393,17 +397,17 @@
 				.then((res) => res.json())
 				.then((data) => {
 					console.log(data);
-					$("#storename").val(data[id - 1].storeName);
-					$("#storeadd").val(data[id - 1].storeAddress);
-					$("#storephone").val(data[id - 1].storePhone);
-					$("#storeemail").val(data[id - 1].storeEmail);
-					$("#adminname").val(data[id - 1].storeAdminName);
-					$("#adminid").val(data[id - 1].storeAdminId);
-					$("#adminphone").val(data[id - 1].storeAdminPhone);
-					$("#adminaccount").val(data[id - 1].storeAdminAccount);
-					$("#storetime").val(data[id - 1].storeBuildTime);
+					$("#storename").val(data[id].storeName);
+					$("#storeadd").val(data[id].storeAddress);
+					$("#storephone").val(data[id].storePhone);
+					$("#storeemail").val(data[id].storeEmail);
+					$("#adminname").val(data[id].storeAdminName);
+					$("#adminid").val(data[id].storeAdminId);
+					$("#adminphone").val(data[id].storeAdminPhone);
+					$("#adminaccount").val(data[id].storeAdminAccount);
+					$("#storetime").val(data[id].storeBuildTime);
 
-					if (data[id - 1].storeAccountStatus == 0) {
+					if (data[id].storeAccountStatus == 0) {
 						document.querySelector('.modal-footer').innerHTML = `<button class="unconfirm">通過審核</button>`
 
 					}
