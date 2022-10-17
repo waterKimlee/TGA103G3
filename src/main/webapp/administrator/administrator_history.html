@@ -70,6 +70,20 @@
 			height: 56px;
 		}
 
+		.detail,
+		.detail td,
+		.detail th {
+			border: 2px solid black;
+			font-size: 20px;
+			width: 500px;
+			text-align: center;
+		}
+
+		.detail tr {
+			width: 200px;
+
+		}
+
 		a {
 			display: block;
 			text-decoration: none;
@@ -157,6 +171,7 @@
 			position: absolute;
 			left: 50%;
 			transform: translate(-50%);
+			display: inline-block;
 		}
 
 		.modal-footer {
@@ -165,6 +180,10 @@
 
 		.col-10>input {
 			border-radius: 10px;
+		}
+
+		tbody {
+			cursor: pointer;
 		}
 	</style>
 </head>
@@ -206,17 +225,26 @@
 		<hr>
 
 		<h1>歷史訂單</h1>
+		<h3>點擊列表查看商品明細</h3>
 		<hr>
+
+		<!-- 訂單明細燈箱 -->
 		<div class="modal fade" id="orderlist">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<hr>
-						<h3 class="orderNum">訂單明細：編號</h3>
+						<h3>訂單明細</h3>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 					</div>
 					<div class="modal-body">
 
+						<div class="form-group row">
+							<div class="col-2">訂單編號</div>
+							<div class="col-10">
+								<input type="text" class="account form-control" readonly id="orderNum" name="" value="">
+							</div>
+						</div>
 						<div class="form-group row">
 							<div class="col-2">會員：</div>
 							<div class="col-10">
@@ -232,7 +260,26 @@
 						<div class="form-group row">
 							<div class="col-2">商品明細：</div>
 							<div class="col-10">
-								<textarea rows="10" cols="75" id="orderDetail">123</textarea>
+								<!-- <textarea rows="10" cols="75" id="orderDetail">123 -->
+								<table class="detail">
+									<thead>
+										<tr>
+											<th>商品名稱</th>
+											<th>----數量----</th>
+											<th>----單價----</th>
+
+										</tr>
+									</thead>
+									<tbody id="detail">
+										<!-- <tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											
+										</tr> -->
+									</tbody>
+								</table>
+								<!-- </textarea> -->
 								<!-- <input type="text" class="account form-control" readonly id="orderDetail" name="" value=""> -->
 							</div>
 						</div>
@@ -309,11 +356,21 @@
 				</tr>`
 
 		}
+		// 訂單明細模版
+		function detailTemplate(productName, quantity, price) {
+			return `<tr>
+
+					<td>${productName}</td>
+					<td>${quantity}</td>
+					<td>${price}</td>
+										
+				</tr>`
+		}
 
 		let id, userName, storeName, orderAmount;
 		//選擊列表抓取訂單編號
 		$(document).on("mouseover", ".orderlist", function () {
-			id = $(this).find("td").eq(0).text() - 1;
+			id = $(this).find("td").eq(0).text();
 			userName = $(this).find('td').eq(1).text();
 			storeName = $(this).find('td').eq(2).text();
 			orderAmount = $(this).find('td').eq(3).text();
@@ -322,18 +379,35 @@
 
 		//將訂單詳細資料代入燈箱中
 		$(document).on("click", ".orderlist", function () {
-			console.log("TTT")
-			$(".orderNum").append((id + 1));
+			merge = [];
+			detail = [];
+			product = [];
+			merge = [];
+			$("#orderNum").val((id));
 			$("#userName").val(userName);
 			$("#storeName").val(storeName);
 			$("#orderAmount").val(orderAmount);
-			// $("#storeemail").val(data[id].storeEmail);
-			// $("#adminname").val(data[id].storeAdminName);
-			// $("#adminid").val(data[id].storeAdminId);
-			// $("#adminphone").val(data[id].storeAdminPhone);
-			// $("#adminaccount").val(data[id].storeAdminAccount);
-			// $("#storetime").val(data[id].storeBuildTime);
 
+			// 取得訂單編號的明細
+			detail = list[1].filter((e) => e.orderId == id)
+			// 取得指定id的商品名稱
+			for (var i = 0; i < detail.length; i++) {
+				product.push(list[2].filter((e) => e.productId == detail[i].productId));
+			}
+			// 二維陣列變一維
+			product = product.flat();
+			// 合併陣列中的物件 $.extend()若沒第一個參數則是直接合併到第一個物件
+			for (var i = 0; i < detail.length; i++) {
+				merge.push($.extend({}, product[i], detail[i]))
+			}
+
+
+			document.querySelector("#detail").innerHTML = merge.map((e) => detailTemplate(e.productName, e.quantity, e.productPrice)).join('')
+
+
+			console.log(detail)
+			console.log(product)
+			console.log(merge)
 		});
 
 		//計算總金額為金額格式
@@ -342,36 +416,36 @@
 			return parseFloat(num).toLocaleString();
 		}
 
+		// let list, detail, product, merge = [];
 		let list = [];
-		console.log(list)
-		function init() {
-			fetch('http://localhost:8081/TGA103G3/AdminGetHistory')
+		let detail = [];
+		let product = [];
+		let merge = [];
+
+
+		async function init() {
+			await fetch('http://localhost:8081/TGA103G3/AdminGetHistory')
 				.then((res) => res.json())
 				.then((data) => {
 					console.log(data);// 0:orderMaster, 1:orderDetail, 2:product
 
-					list = data.slice();
+					// 存data到全域變數
+					list = data;
+
+					// 訂單資料顯示到頁面
 					document.querySelector("#order").innerHTML = data[0].map((e) => orderTemplate(e.orderId, e.userName, e.storeName, e.orderAmount, e.orderTime)).join('');
 
+					// 加總金額
 					data[0].map((e) => sum += e.orderAmount);
 
 					document.querySelector(".sum").innerHTML += format_money(sum)
-
-
-					// 將尚未處理及處理過的資料分開
-
-					// 審核過之店家清單
-					// document.querySelector("#store").innerHTML = storeList.
-					// 	map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail))
-					// 	.join('');
-
 
 				});
 
 		}
 
 		window.addEventListener('load', init);
-		console.log(list)
+
 	</script>
 
 </body>
