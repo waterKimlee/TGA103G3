@@ -189,10 +189,33 @@
 						<th>帳號</th>
 						<th>姓名</th>
 						<th>電話</th>
+						<th>狀態</th>
 					</tr>
 				</thead>
 
 				<tbody id="user">
+					<!-- <tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr> -->
+
+				</tbody>
+			</table>
+			<h2>停權中帳號</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>編號</th>
+						<th>帳號</th>
+						<th>姓名</th>
+						<th>電話</th>
+						<th>狀態</th>
+					</tr>
+				</thead>
+
+				<tbody id="closeUser">
 					<!-- <tr>
 						<td></td>
 						<td></td>
@@ -213,20 +236,53 @@
 	<script>
 
 
-		function userTemplate(userId, userAccount, userName, userPhone) {
-			return `<tr>
+		function userTemplate(userId, userAccount, userName, userPhone, UserStatus) {
+			return `<tr class="userlist">
 						<td>${userId}</td>
 						<td>${userAccount}</td>
 						<td>${userName}</td>
 						<td>${userPhone}</td>
+						<td><select class="status">
+							<option value="0">正常</option>
+							<option value="1" ${UserStatus ? 'selected' : ''}>停權</option>
+							</select></td>
 					</tr>`
 
 		}
 
+
+		// 登出
 		document.querySelector('#logout').addEventListener('click', () => {
 			fetch('http://localhost:8081/TGA103G3/administrator/AdminLogout').then(res => res.text).then();
 			window.location.href = 'http://localhost:8081/TGA103G3/administrator/login_administrator.jsp';
 		});
+
+		let id, status;
+		//選擊列表抓取會員編號
+		$(document).on("mouseover", ".userlist", function () {
+			id = $(this).find("td").eq(0).text();
+			//console.log(id);
+		});
+		// 綁定改變狀態事件
+		$(document).on("change", ".status", function () {
+			status = $(this).val();
+			console.log(status)
+			fetch('http://localhost:8081/TGA103G3/AdminSetUser', {
+				method: "post",
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					userId: id,
+					userStatus: status
+				})
+			}).then((res) => res.text).then();
+			window.location.reload();
+
+		})
+
+
+		let userList = [];
+		let closeUserList = [];
+
 		// const url = "http://localhost:8081/TGA103G3/users"
 		window.addEventListener('load', () => {
 
@@ -234,7 +290,19 @@
 				.then((res) => res.json())
 				.then((data) => {
 					console.log(data);
-					document.querySelector("#user").innerHTML = data.map((e) => userTemplate(e.UserId, e.UserAccount, e.UserName, e.UserPhone))
+					// 將不同狀態的資料分開
+					for (i = 0; i < data.length; i++) {
+						if (data[i].UserStatus == 1) {
+							closeUserList.push(data[i])
+						} else {
+							userList.push(data[i])
+						}
+					}
+
+					document.querySelector("#user").innerHTML = userList.map((e) => userTemplate(e.UserId, e.UserAccount, e.UserName, e.UserPhone))
+						.join('');
+
+					document.querySelector("#closeUser").innerHTML = closeUserList.map((e) => userTemplate(e.UserId, e.UserAccount, e.UserName, e.UserPhone, e.UserStatus))
 						.join('');
 				})
 			document.querySelector(".adminname").innerHTML = sessionStorage.getItem('nickname');

@@ -38,13 +38,32 @@ public class UserServiceIm implements UserServiceIn {
 		}
 	}
 
+//	@Override
+//	public Result getById(Integer id) {
+//		try {
+//			return R.success(DAO.getById(id));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return R.fail(e.toString());
+//		}
+//	}
 	@Override
-	public Result getById(Integer id) {
+	public UserVO getById(Integer id) {
 		try {
-			return R.success(DAO.getById(id));
+			return DAO.getById(id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return R.fail(e.toString());
+		}
+		return null;
+	}
+
+	@Override
+	public void updateStatus(UserVO vo) {
+		try {
+			DAO.updateStatus(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
+	
 }

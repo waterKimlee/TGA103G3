@@ -9,6 +9,8 @@ public interface UserServiceIn {
 
 	public List<UserVO> getAll() throws Exception;
 
-	public Result getById(Integer id);
+	public UserVO getById(Integer id);
+	
+	public void updateStatus(UserVO vo);
 
 }

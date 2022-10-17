@@ -1,41 +1,43 @@
 package com.fastero.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fastero.service.impl.StoreServiceImpl;
-import com.fastero.service.intf.StoreService;
-import com.fastero.vo.StoreVO;
+import com.fastero.service.impl.UserServiceIm;
+import com.fastero.service.intf.UserServiceIn;
+import com.fastero.vo.UserVO;
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class AdminSetStore
+ * Servlet implementation class AdminSetUser
  */
-@WebServlet("/AdminSetStore")
-public class AdminSetStore extends HttpServlet {
+@WebServlet("/AdminSetUser")
+public class AdminSetUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	Gson _gson = new Gson(); 
 
-	private StoreService service = new StoreServiceImpl();
+	Gson _gson = new Gson();
+
+	private UserServiceIn service = new UserServiceIm();
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		setHeaders(response);
+
+		UserVO vo = _gson.fromJson(request.getReader().readLine(), UserVO.class);
+
+//		int id = vo.getUserId();
+//		int status = vo.getUserStatus();
 		
-		StoreVO vo = _gson.fromJson(request.getReader().readLine(), StoreVO.class);
-		
-		int id = vo.getStoreId();
-		
-		vo = service.findById(id);
+//		vo = service.getById(id);
+		System.out.println(vo.getUserId());
+		System.out.println(vo.getUserStatus());
 		service.updateStatus(vo);
-		
-//		response.getWriter().print(_gson.toJson(service.findAllReport()));
-	
 	}
 
 	private void setHeaders(HttpServletResponse response) {
