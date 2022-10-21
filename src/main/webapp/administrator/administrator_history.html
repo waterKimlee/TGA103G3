@@ -267,20 +267,15 @@
 											<th>商品名稱</th>
 											<th>----數量----</th>
 											<th>----單價----</th>
+											<th>----小計----</th>
 
 										</tr>
 									</thead>
 									<tbody id="detail">
-										<!-- <tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											
-										</tr> -->
+
 									</tbody>
 								</table>
-								<!-- </textarea> -->
-								<!-- <input type="text" class="account form-control" readonly id="orderDetail" name="" value=""> -->
+
 							</div>
 						</div>
 						<div class="form-group row">
@@ -363,6 +358,7 @@
 					<td>${productName}</td>
 					<td>${quantity}</td>
 					<td>${price}</td>
+					<td>${price * quantity}</td>
 										
 				</tr>`
 		}
@@ -401,13 +397,9 @@
 				merge.push($.extend({}, product[i], detail[i]))
 			}
 
-
+			// 明細資料帶入燈箱中顯示
 			document.querySelector("#detail").innerHTML = merge.map((e) => detailTemplate(e.productName, e.quantity, e.productPrice)).join('')
 
-
-			console.log(detail)
-			console.log(product)
-			console.log(merge)
 		});
 
 		//計算總金額為金額格式

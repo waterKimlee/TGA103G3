@@ -171,7 +171,9 @@
 			cursor: pointer;
 		}
 
-		.unconfirm {
+		.unconfirm,
+		.stop,
+		.start {
 			height: 30px;
 			width: 100px;
 			position: absolute;
@@ -216,6 +218,7 @@
 			</div>
 			<div class="col-1"></div>
 		</div>
+
 		<hr>
 		<h1>商家管理</h1>
 		<h3>點擊列表查看及審核</h3>
@@ -298,11 +301,8 @@
 					</div>
 				</div>
 
-
 			</div>
 		</div>
-
-
 
 		<h2>目前登入人員：</h2>
 		<h2 class="adminname"></h2>
@@ -319,24 +319,13 @@
 						<th>地址</th>
 						<th>電話</th>
 						<th>email</th>
-						<!-- <th>確認通過</th> -->
-						<!-- <th>修改</th>
-						<th>刪除</th> -->
 					</tr>
 				</thead>
 
 				<tbody id="unstore">
-					<!-- <tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr> -->
+
 				</tbody>
-
 			</table>
-
 
 			<hr>
 			<h2>已審核店家</h2>
@@ -348,23 +337,25 @@
 						<th>地址</th>
 						<th>電話</th>
 						<th>email</th>
-						<!-- <th>修改</th>
-						<th>刪除</th> -->
 					</tr>
 				</thead>
-
 				<tbody id="store">
-					<!-- <tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr> -->
 				</tbody>
-
 			</table>
-
+			<h2>停權中店家</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>店家編號</th>
+						<th>名稱</th>
+						<th>地址</th>
+						<th>電話</th>
+						<th>email</th>
+					</tr>
+				</thead>
+				<tbody id="stopStore">
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<footer><img class="footer" src="./images/footer.png" alt="" /></footer>
@@ -374,7 +365,7 @@
 	<script>
 
 		// 商家列表模版
-		function storeTemplate(storeID, storename, storeaddress, storephone, storeemail, storeaccountstatus) {
+		function storeTemplate(storeID, storename, storeaddress, storephone, storeemail, storeAccountStatus) {
 			return `<tr data-bs-toggle="modal"
 								data-bs-target="#storelist" class="storelist">
 
@@ -384,10 +375,13 @@
 					<td>${storephone}</td>
 					<td>${storeemail}</td>
 					
-					
 				</tr>`
 
 		}
+
+
+		// 改變店家狀態
+
 
 
 
@@ -418,18 +412,48 @@
 					$('#img').attr('src', jpeg + data[id].storeImg);
 					if (data[id].storeAccountStatus == 0) {
 						document.querySelector('.modal-footer').innerHTML = `<button class="unconfirm">通過審核</button>`
-
+					}
+					if (data[id].storeAccountStatus == 1) {
+						document.querySelector('.modal-footer').innerHTML = `<button class="stop">停權</button>`
+					}
+					if (data[id].storeAccountStatus == 2) {
+						document.querySelector('.modal-footer').innerHTML = `<button class="start">重新上架</button>`
 					}
 				})
 		});
 
-		// 修改店家審核狀態
-		$('.modal-footer').on("click", function () {
+		// 修改店家審核狀態成通過
+		$(document).on("click", ".unconfirm", function () {
 			fetch('http://localhost:8081/TGA103G3/AdminSetStore', {
 				method: "post",
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
-					storeId: id
+					storeId: (id + 1),
+					storeAccountStatus: 1
+				})
+			}).then((res) => res.text).then();
+			window.location.reload();
+		});
+		// 已上架商家改成停權
+		$(document).on("click", ".stop", function () {
+			fetch('http://localhost:8081/TGA103G3/AdminSetStore', {
+				method: "post",
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					storeId: (id + 1),
+					storeAccountStatus: 2
+				})
+			}).then((res) => res.text).then();
+			window.location.reload();
+		});
+		// 停權商家改成上架
+		$(document).on("click", ".start", function () {
+			fetch('http://localhost:8081/TGA103G3/AdminSetStore', {
+				method: "post",
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					storeId: (id + 1),
+					storeAccountStatus: 1
 				})
 			}).then((res) => res.text).then();
 			window.location.reload();
@@ -454,23 +478,31 @@
 
 					let storeList = [];
 					let unstoreList = [];
+					let stopStoreList = [];
 
 					// 將尚未處理及處理過的資料分開
 					for (i = 0; i < data.length; i++) {
 						if (data[i].storeAccountStatus == 1) {
 							storeList.push(data[i])
-						} else {
+						} else if (data[i].storeAccountStatus == 0) {
 							unstoreList.push(data[i])
+						} else {
+							stopStoreList.push(data[i])
 						}
 					}
 					// 審核過之店家清單
 					document.querySelector("#store").innerHTML = storeList.
-						map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail, e.storeImg))
+						map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail, e.storeAccountStatus))
 						.join('');
 
 					// 未審核之店家清單
 					document.querySelector("#unstore").innerHTML = unstoreList.
-						map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail, e.storeImg, e.storeAccountStatus))
+						map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail, e.storeAccountStatus))
+						.join('');
+
+					// 停權之店家清單
+					document.querySelector("#stopStore").innerHTML = stopStoreList.
+						map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail, e.storeAccountStatus))
 						.join('');
 				});
 

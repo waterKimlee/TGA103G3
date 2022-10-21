@@ -114,9 +114,12 @@ public class StoreDAOImpl implements StoreDAO {
 	public Integer updateStatus(StoreVO vo) {
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement ps = conn
-						.prepareStatement("UPDATE `FASTERO`.`Store` SET `store_account_status` = '1' "
+						.prepareStatement("UPDATE `FASTERO`.`Store` SET `store_account_status` = ? "
 								+ "WHERE `store_id` = ?");) {
-			ps.setInt(1, vo.getStoreId());
+			System.out.println(vo.getStoreAccountStatus()+"AAA");
+			System.out.println(vo.getStoreId()+"BBB");
+			ps.setInt(1, vo.getStoreAccountStatus());
+			ps.setInt(2, vo.getStoreId());
 			
 			ps.executeUpdate();
 			return 1;

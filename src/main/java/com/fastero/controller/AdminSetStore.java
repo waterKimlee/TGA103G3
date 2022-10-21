@@ -28,10 +28,10 @@ public class AdminSetStore extends HttpServlet {
 		setHeaders(response);
 		
 		StoreVO vo = _gson.fromJson(request.getReader().readLine(), StoreVO.class);
-		
-		int id = vo.getStoreId();
-		
-		vo = service.findById(id);
+		Integer storeAccountStatus = vo.getStoreAccountStatus();
+//		int id = vo.getStoreId();
+//		vo = service.findById(id);
+		System.out.println(storeAccountStatus);
 		service.updateStatus(vo);
 		
 //		response.getWriter().print(_gson.toJson(service.findAllReport()));
