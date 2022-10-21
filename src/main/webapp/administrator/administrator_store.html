@@ -285,6 +285,12 @@
 								<input type="text" class="account form-control" readonly id="storetime" name="" value="">
 							</div>
 						</div>
+						<div class="form-group row">
+							<div class="col-2">商家預覽</div>
+							<div class="col-10">
+								<img id='img' src="" style="width:600px ;height: inherit;">
+							</div>
+						</div>
 
 					</div>
 					<div class="modal-footer">
@@ -378,6 +384,7 @@
 					<td>${storephone}</td>
 					<td>${storeemail}</td>
 					
+					
 				</tr>`
 
 		}
@@ -391,6 +398,8 @@
 			id = $(this).find("td").eq(0).text() - 1;
 			console.log(id);
 		});
+
+		let jpeg = 'data:image/jpeg;base64,';
 		//將商家詳細資料代入燈箱中
 		$(document).on("click", ".storelist", function () {
 			fetch(url)
@@ -406,7 +415,7 @@
 					$("#adminphone").val(data[id].storeAdminPhone);
 					$("#adminaccount").val(data[id].storeAdminAccount);
 					$("#storetime").val(data[id].storeBuildTime);
-
+					$('#img').attr('src', jpeg + data[id].storeImg);
 					if (data[id].storeAccountStatus == 0) {
 						document.querySelector('.modal-footer').innerHTML = `<button class="unconfirm">通過審核</button>`
 
@@ -456,12 +465,12 @@
 					}
 					// 審核過之店家清單
 					document.querySelector("#store").innerHTML = storeList.
-						map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail))
+						map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail, e.storeImg))
 						.join('');
 
 					// 未審核之店家清單
 					document.querySelector("#unstore").innerHTML = unstoreList.
-						map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail, e.storeAccountStatus))
+						map((e) => storeTemplate(e.storeId, e.storeName, e.storeAddress, e.storePhone, e.storeEmail, e.storeImg, e.storeAccountStatus))
 						.join('');
 				});
 

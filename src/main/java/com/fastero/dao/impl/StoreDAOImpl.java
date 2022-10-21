@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -43,7 +44,6 @@ public class StoreDAOImpl implements StoreDAO {
 				storeVO.setStoreAdminPassword(rSet.getNString("store_admin_password"));
 				storeVO.setStoreAdminPhone(rSet.getNString("store_admin_phone"));
 				storeVO.setStoreAdminAddress(rSet.getNString("store_admin_address"));
-				storeVO.setStoreImg(rSet.getBlob("store_preview_img"));
 				storeVO.setStoreIntroduction(rSet.getNString("store_introduction"));
 				storeVO.setStoreOpenStatus(rSet.getByte("store_open_status"));
 				storeVO.setStoreAccountStatus(rSet.getInt("store_account_status"));
@@ -54,6 +54,14 @@ public class StoreDAOImpl implements StoreDAO {
 				storeVO.setStoreCommentNumber(rSet.getInt("store_comment_number"));
 				storeVO.setStoreTotalStar(rSet.getInt("store_total_star"));
 				storeVO.setStoreBusinessTime(rSet.getString("store_business_time"));
+
+				try {storeVO.setStoreImg(Base64.getEncoder().encodeToString(rSet.getBytes("store_preview_img")));
+				}catch (Exception e) {
+					storeVO.setStoreImg(null);
+					
+				}
+				
+//				storeVO.setStoreImg(rSet.getBlob("store_preview_img"));
 				list.add(storeVO);
 			}
 			return list;
@@ -144,7 +152,8 @@ public class StoreDAOImpl implements StoreDAO {
 				storeVO.setStoreAdminPassword(rs.getNString("store_admin_password"));
 				storeVO.setStoreAdminPhone(rs.getNString("store_admin_phone"));
 				storeVO.setStoreAdminAddress(rs.getNString("store_admin_address"));
-				storeVO.setStoreImg(rs.getBlob("store_preview_img"));
+//				storeVO.setStoreImg(rs.getBlob("store_preview_img"));
+				storeVO.setStoreImg(Base64.getEncoder().encodeToString(rs.getBytes("store_preview_img")));
 				storeVO.setStoreIntroduction(rs.getNString("store_introduction"));
 				storeVO.setStoreOpenStatus(rs.getByte("store_open_status"));
 				storeVO.setStoreAccountStatus(rs.getInt("store_account_status"));
@@ -189,7 +198,8 @@ public class StoreDAOImpl implements StoreDAO {
 				storeVO.setStoreAdminPassword(rs.getNString("store_admin_password"));
 				storeVO.setStoreAdminPhone(rs.getNString("store_admin_phone"));
 				storeVO.setStoreAdminAddress(rs.getNString("store_admin_address"));
-				storeVO.setStoreImg(rs.getBlob("store_preview_img"));
+//				storeVO.setStoreImg(rs.getBlob("store_preview_img"));
+				storeVO.setStoreImg(Base64.getEncoder().encodeToString(rs.getBytes("store_preview_img")));
 				storeVO.setStoreIntroduction(rs.getNString("store_introduction"));
 				storeVO.setStoreOpenStatus(rs.getByte("store_open_status"));
 				storeVO.setStoreAccountStatus(rs.getInt("store_account_status"));

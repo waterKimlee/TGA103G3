@@ -19,7 +19,7 @@ public class StoreVO implements Serializable{
 	private String storeAdminPassword;
 	private String storeAdminPhone;
 	private String storeAdminAddress;
-	private Blob storeImg;
+	private String storeImg;
 	private String storeIntroduction;
 	private byte storeOpenStatus;
 	private Integer storeAccountStatus;
@@ -123,11 +123,11 @@ public class StoreVO implements Serializable{
 		this.storeAdminAddress = storeAdminAddress;
 	}
 
-	public Blob getStoreImg() {
+	public String getStoreImg() {
 		return storeImg;
 	}
 
-	public void setStoreImg(Blob storeImg) {
+	public void setStoreImg(String storeImg) {
 		this.storeImg = storeImg;
 	}
 
@@ -219,7 +219,7 @@ public class StoreVO implements Serializable{
 
 	public StoreVO(Integer storeId, String storeName, String storeAddress, String longitude, String latitude,
 			String storePhone, String storeEmail, String storeAdminAccount, String storeAdminPassword,
-			String storeAdminPhone, String storeAdminAddress, Blob storeImg, String storeIntroduction,
+			String storeAdminPhone, String storeAdminAddress, String storeImg, String storeIntroduction,
 			byte storeOpenStatus, Integer storeAccountAtatus, String storeAdminName, String storeAdminId,
 			Date storeBuildTime, Date storeUpdateTime, Integer storeCommentNumber, Integer storeTotalStar,
 			String storeBusinessTime) {
