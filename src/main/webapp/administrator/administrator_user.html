@@ -26,10 +26,21 @@
 			text-shadow: 2px 3px 5px #4d4d4d;
 		}
 
+
 		header {
-			border: 3px solid black;
 			height: 100px;
 			text-align: center;
+			background-color: rgb(176, 199, 191);
+		}
+
+		img.-on {
+			position: absolute;
+			width: 250px;
+			left: 100px;
+			background-position: top;
+			top: -55px;
+			left: 15px;
+			display: flex;
 		}
 
 		.footer {
@@ -96,19 +107,7 @@
 			margin-top: 10px;
 		}
 
-		img.logo {
-			display: none;
-		}
 
-		img.-on {
-			position: absolute;
-			width: 250px;
-			left: 100px;
-			background-position: top;
-			top: 15px;
-			left: 15px;
-			display: flex;
-		}
 
 		#logout {
 			position: absolute;
@@ -140,7 +139,7 @@
 <body>
 	<header>
 		<div id="header" class="row">
-			<img class="logo -on" src="./images/logo_navy2.png" alt="logo" />
+			<img class="logo -on" src="./images/logo_navy.png" alt="logo" />
 
 			<p>管理者頁面</p>
 
@@ -182,7 +181,7 @@
 		<h2 class="adminname"></h2>
 		<div class="row d-flex justify-content-center align-content-center" style="text-align: center"
 			style="height: 600px;">
-			<table>
+			<table class="table table-hover border border-dark table-success table-striped">
 				<thead>
 					<tr>
 						<th>編號</th>

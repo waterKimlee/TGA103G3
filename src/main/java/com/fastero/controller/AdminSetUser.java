@@ -23,7 +23,7 @@ public class AdminSetUser extends HttpServlet {
 	Gson _gson = new Gson();
 
 	private UserServiceIn service = new UserServiceIm();
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -31,10 +31,10 @@ public class AdminSetUser extends HttpServlet {
 
 		UserVO vo = _gson.fromJson(request.getReader().readLine(), UserVO.class);
 
-//		int id = vo.getUserId();
-//		int status = vo.getUserStatus();
-		
-//		vo = service.getById(id);
+		// int id = vo.getUserId();
+		// int status = vo.getUserStatus();
+
+		// vo = service.getById(id);
 		System.out.println(vo.getUserId());
 		System.out.println(vo.getUserStatus());
 		service.updateStatus(vo);
@@ -51,5 +51,11 @@ public class AdminSetUser extends HttpServlet {
 		response.addHeader("Access-Control-Allow-Methods", "*");
 		response.addHeader("Access-Control-Allow-Headers", "*");
 		response.addHeader("Access-Control-Max-Age", "86400");
+	}
+
+	@Override
+	protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		setHeaders(resp);
+
 	}
 }

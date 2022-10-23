@@ -26,11 +26,7 @@
 			text-shadow: 2px 3px 5px #4d4d4d;
 		}
 
-		header {
-			border: 3px solid black;
-			height: 100px;
-			text-align: center;
-		}
+
 
 		.footer {
 			width: 100%;
@@ -96,8 +92,11 @@
 			margin-top: 10px;
 		}
 
-		img.logo {
-			display: none;
+
+		header {
+			height: 100px;
+			text-align: center;
+			background-color: rgb(176, 199, 191);
 		}
 
 		img.-on {
@@ -105,7 +104,7 @@
 			width: 250px;
 			left: 100px;
 			background-position: top;
-			top: 15px;
+			top: -55px;
 			left: 15px;
 			display: flex;
 		}
@@ -171,7 +170,7 @@
 <body>
 	<header>
 		<div id="header" class="row">
-			<img class="logo -on" src="./images/logo_navy2.png" alt="logo" />
+			<img class="logo -on" src="./images/logo_navy.png" alt="logo" />
 
 			<p>管理者頁面</p>
 
@@ -212,7 +211,7 @@
 	<div class="row d-flex justify-content-center align-content-center" style="text-align: center" style="height: 600px;">
 		<hr>
 		<h2>尚未處理</h2>
-		<table>
+		<table class="table table-hover border border-dark table-success table-striped">
 			<thead>
 				<tr>
 					<th>編號</th>
@@ -233,7 +232,7 @@
 
 		<hr>
 		<h2>已處理</h2>
-		<table>
+		<table class="table table-hover border border-dark table-success table-striped">
 			<thead>
 				<tr>
 					<th>編號</th>

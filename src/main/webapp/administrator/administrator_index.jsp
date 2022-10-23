@@ -43,11 +43,21 @@
 										text-shadow: 2px 3px 5px #4d4d4d;
 									}
 
-									#header {
-										border: 3px solid black;
+
+									header {
 										height: 100px;
 										text-align: center;
-										background-color: red;
+										background-color: rgb(176, 199, 191);
+									}
+
+									img.-on {
+										position: absolute;
+										width: 250px;
+										left: 100px;
+										background-position: top;
+										top: -55px;
+										left: 15px;
+										display: flex;
 									}
 
 									.footer {
@@ -114,15 +124,6 @@
 										margin-top: 10px;
 									}
 
-									img.-on {
-										position: absolute;
-										width: 250px;
-										left: 100px;
-										background-position: top;
-										top: 15px;
-										left: 15px;
-										display: flex;
-									}
 
 									#logout {
 										position: absolute;
@@ -148,8 +149,9 @@
 										width: 10%;
 										height: 40px;
 									}
-									.modal-body button{
-									width:120px;
+
+									.modal-body button {
+										width: 120px;
 									}
 								</style>
 							</head>
@@ -157,7 +159,7 @@
 							<body>
 								<header style="background-color: white">
 									<div id="header" class="row" style="background-color: white">
-										<img style="background-color: white" class="logo -on" src="./images/logo_navy2.png" alt="logo" />
+										<img style="background-color: white" class="logo -on" src="./images/logo_navy.png" alt="logo" />
 
 										<p style="background-color: white">管理者頁面</p>
 
@@ -323,7 +325,7 @@
 									<h2 class="adminname"></h2>
 									<div class="row d-flex justify-content-center align-content-center" style="text-align: center"
 										style="height: 600px;">
-										<table>
+										<table class="table table-hover border border-dark table-success table-striped">
 											<tr>
 												<th>編號</th>
 												<th>帳號</th>
@@ -416,28 +418,28 @@
 									});
 
 
-// 									account = "${ admin.administratorAccount }";
-// 									password = "${ admin.administratorPassword }";
+									// 									account = "${ admin.administratorAccount }";
+									// 									password = "${ admin.administratorPassword }";
 
 									function guard() {
 
 									}
 
 									function init() {
-// 										fetch('http://localhost:8081/TGA103G3/administrator/adminLogin', {
-// 											method: "post",
-// 											headers: { 'Content-Type': "application/json" },
-// 											body: JSON.stringify(
-// 												{
-// 													administratorAccount: account,
-// 												})
+										// 										fetch('http://localhost:8081/TGA103G3/administrator/adminLogin', {
+										// 											method: "post",
+										// 											headers: { 'Content-Type': "application/json" },
+										// 											body: JSON.stringify(
+										// 												{
+										// 													administratorAccount: account,
+										// 												})
 
-// 										}).then(res => res.json()).then((data) => {
-// 											console.log(data.administratorName);
-// 											document.querySelector(".adminname").innerHTML = data.administratorName;
-// 										})
-										
-										
+										// 										}).then(res => res.json()).then((data) => {
+										// 											console.log(data.administratorName);
+										// 											document.querySelector(".adminname").innerHTML = data.administratorName;
+										// 										})
+
+
 
 									}
 									// 綁定登出按鈕，回到登入頁面
@@ -445,11 +447,11 @@
 										fetch('http://localhost:8081/TGA103G3/administrator/AdminLogout').then(res => res.text).then();
 										window.location.href = 'http://localhost:8081/TGA103G3/administrator/login_administrator.jsp';
 									});
-									
+
 									// 暫存管理者名稱
 									sessionStorage.setItem('nickname', "${admin.administratorName}");
 									document.querySelector(".adminname").innerHTML = sessionStorage.getItem('nickname');
-									
+
 									// 綁定刪除按鈕
 									function onRemoveClick() {
 										if (!confirm('確定刪除?')) {
@@ -457,7 +459,7 @@
 										}
 										return true;
 									}
-									
+
 									window.addEventListener('load', init)
 								</script>
 

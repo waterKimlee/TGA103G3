@@ -26,11 +26,7 @@
 			text-shadow: 2px 3px 5px #4d4d4d;
 		}
 
-		header {
-			border: 3px solid black;
-			height: 100px;
-			text-align: center;
-		}
+
 
 		.footer {
 			width: 100%;
@@ -96,8 +92,10 @@
 			margin-top: 10px;
 		}
 
-		img.logo {
-			display: none;
+		header {
+			height: 100px;
+			text-align: center;
+			background-color: rgb(176, 199, 191);
 		}
 
 		img.-on {
@@ -105,7 +103,7 @@
 			width: 250px;
 			left: 100px;
 			background-position: top;
-			top: 15px;
+			top: -55px;
 			left: 15px;
 			display: flex;
 		}
@@ -186,7 +184,7 @@
 <body>
 	<header>
 		<div id="header" class="row">
-			<img class="logo -on" src="./images/logo_navy2.png" alt="logo" />
+			<img class="logo -on" src="./images/logo_navy.png" alt="logo" />
 
 			<p>管理者頁面</p>
 			<p class="nickname"></p>
@@ -311,7 +309,7 @@
 			style="height: 600px;">
 			<hr>
 			<h2>未審核店家</h2>
-			<table>
+			<table class="table table-hover border border-dark table-success table-striped">
 				<thead>
 					<tr>
 						<th>店家編號</th>
@@ -329,7 +327,7 @@
 
 			<hr>
 			<h2>已審核店家</h2>
-			<table>
+			<table class="table table-hover border border-dark table-success table-striped">
 				<thead>
 					<tr>
 						<th>店家編號</th>
@@ -343,7 +341,7 @@
 				</tbody>
 			</table>
 			<h2>停權中店家</h2>
-			<table>
+			<table class="table table-hover border border-dark table-success table-striped">
 				<thead>
 					<tr>
 						<th>店家編號</th>
@@ -379,12 +377,7 @@
 
 		}
 
-
 		// 改變店家狀態
-
-
-
-
 
 		let id;
 		//選擊列表抓取店家編號
@@ -423,7 +416,7 @@
 		});
 
 		// 修改店家審核狀態成通過
-		$(document).on("click", ".unconfirm", function () {
+		$(document).on("click", ".unconfirm .start", function () {
 			fetch('http://localhost:8081/TGA103G3/AdminSetStore', {
 				method: "post",
 				headers: { 'Content-Type': 'application/json' },
@@ -432,10 +425,11 @@
 					storeAccountStatus: 1
 				})
 			}).then((res) => res.text).then();
-			window.location.reload();
+			// window.location.reload();
 		});
 		// 已上架商家改成停權
 		$(document).on("click", ".stop", function () {
+			console.log("TTTT")
 			fetch('http://localhost:8081/TGA103G3/AdminSetStore', {
 				method: "post",
 				headers: { 'Content-Type': 'application/json' },
@@ -446,7 +440,7 @@
 			}).then((res) => res.text).then();
 			window.location.reload();
 		});
-		// 停權商家改成上架
+		//停權商家改成上架
 		$(document).on("click", ".start", function () {
 			fetch('http://localhost:8081/TGA103G3/AdminSetStore', {
 				method: "post",
