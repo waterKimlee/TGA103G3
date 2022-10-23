@@ -44,13 +44,13 @@
 									}
 
 
-									header {
+									#header {
 										height: 100px;
 										text-align: center;
 										background-color: rgb(176, 199, 191);
 									}
 
-									img.-on {
+									.logo {
 										position: absolute;
 										width: 250px;
 										left: 100px;
@@ -157,11 +157,11 @@
 							</head>
 
 							<body>
-								<header style="background-color: white">
-									<div id="header" class="row" style="background-color: white">
-										<img style="background-color: white" class="logo -on" src="./images/logo_navy.png" alt="logo" />
+								<header >
+									<div id="header" class="row" >
+										<img  class="logo" src="./images/logo_navy.png" alt="logo" />
 
-										<p style="background-color: white">管理者頁面</p>
+										<p >管理者頁面</p>
 
 
 										<button id="logout" type="submit" value="登出">登出</button>
@@ -219,7 +219,7 @@
 												</div>
 												<div class="modal-body">
 													<!-- 新增管理者 -->
-													<form action="<%=request.getContextPath()%>/administrator/admin.do" method="post">
+													<form action="<%=request.getContextPath()%>/admin.do" method="post">
 														<div class="form-group">
 															帳號：<input type="email" class="account form-control" maxlength="40" placeholder="新增帳號"
 																required
@@ -273,7 +273,7 @@
 												</div>
 												<div class="modal-body">
 													<!-- 修改資料 -->
-													<form action="<%=request.getContextPath()%>/administrator/admin.do" method="post">
+													<form action="<%=request.getContextPath()%>/admin.do" method="post">
 														<div class="form-group">
 															<input type="hidden" class="account form-control" name="adminId"
 																value="${admin.administratorId}">
@@ -368,7 +368,7 @@
 															<c:if test="${admin.administratorRight == 0 }">
 																<!-- 								使用form的onsubmit ，函式裡回傳true才真的送出，若回傳false則不送出 -->
 																<FORM METHOD="post" onsubmit="return onRemoveClick()"
-																	ACTION="<%=request.getContextPath()%>/administrator/admin.do"
+																	ACTION="<%=request.getContextPath()%>/admin.do"
 																	style="margin-bottom: 0px;">
 																	<!-- 									<input type="submit" value="刪除" class="deleteBtn"> -->
 																	<button type="submit" class="deleteBtn">刪除</button>

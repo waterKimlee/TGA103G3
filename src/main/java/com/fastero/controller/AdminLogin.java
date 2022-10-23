@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class AdminLogin
  */
-@WebServlet("/administrator/adminLogin")
+@WebServlet("/adminLogin")
 public class AdminLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 //	private Gson _gson = new Gson();
@@ -33,8 +33,8 @@ public class AdminLogin extends HttpServlet {
 		String account = req.getParameter("administratorAccount");
 		String password = req.getParameter("administratorPassword");
 
-//		System.out.println(account);
-//		System.out.println(password);
+		System.out.println(account);
+		System.out.println(password);
 
 		AdministratorDAO dao = new AdministratorDAO();
 
@@ -65,13 +65,13 @@ public class AdminLogin extends HttpServlet {
 		// 判斷admin
 		if (admin.getAdministratorId() == null) {
 			// 登錄失敗
-			String url = "/administrator/login_administrator.jsp";
+			String url = "/login_administrator.jsp";
 			req.setAttribute("errorMsgs", errorMsgs);
 			errorMsgs.add("帳號或密碼錯誤，請重新輸入");
 
-//			if (!errorMsgs.isEmpty()) {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
+//			res.sendRedirect(url);
 			return;// 程式中斷
 //			}
 		} else {
@@ -84,10 +84,12 @@ public class AdminLogin extends HttpServlet {
 			System.out.println(session.getAttribute("nickname"));
 
 			// 轉發
-			String url = "/administrator/administrator_index.jsp";
+			String url = "/TGA103G3/administrator/administrator_index.jsp";
 
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
+//			RequestDispatcher successView = req.getRequestDispatcher(url);
+//			successView.forward(req, res);
+			
+			res.sendRedirect(url);
 
 		}
 
