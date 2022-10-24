@@ -222,7 +222,7 @@
 												</div>
 												<div class="modal-body">
 													<!-- 新增管理者 -->
-													<form action="<%=request.getContextPath()%>/admin.do" method="post">
+													<form action="<%=request.getContextPath()%>/administrator/admin.do" method="post">
 														<div class="form-group">
 															帳號：<input type="email" class="account form-control" maxlength="40" placeholder="新增帳號"
 																required
@@ -276,7 +276,7 @@
 												</div>
 												<div class="modal-body">
 													<!-- 修改資料 -->
-													<form action="<%=request.getContextPath()%>/admin.do" method="post">
+													<form action="<%=request.getContextPath()%>/administrator/admin.do" method="post">
 														<div class="form-group">
 															<input type="hidden" class="account form-control" name="adminId"
 																value="${admin.administratorId}">
@@ -371,7 +371,7 @@
 															<c:if test="${admin.administratorRight == 0 }">
 																<!-- 								使用form的onsubmit ，函式裡回傳true才真的送出，若回傳false則不送出 -->
 																<FORM METHOD="post" onsubmit="return onRemoveClick()"
-																	ACTION="<%=request.getContextPath()%>/admin.do" style="margin-bottom: 0px;">
+																	ACTION="<%=request.getContextPath()%>/administrator/admin.do" style="margin-bottom: 0px;">
 																	<!-- 									<input type="submit" value="刪除" class="deleteBtn"> -->
 																	<button type="submit" class="deleteBtn">刪除</button>
 																	<input type="hidden" name="action" value="delete"> <input type="hidden"

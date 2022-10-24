@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.fastero.service.impl.AdministratorService;
 import com.fastero.vo.AdministratorVO;
 
-@WebServlet("/admin.do")
+@WebServlet("/administrator/admin.do")
 public class AdministratorController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

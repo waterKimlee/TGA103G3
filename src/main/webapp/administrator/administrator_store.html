@@ -26,7 +26,7 @@
 			text-shadow: 2px 3px 5px #4d4d4d;
 		}
 
-		body{
+		body {
 			background-color: rgb(188, 215, 208);
 		}
 
@@ -181,8 +181,6 @@
 			left: 50%;
 			transform: translate(-50%);
 		}
-
-		
 	</style>
 </head>
 
@@ -421,7 +419,8 @@
 		});
 
 		// 修改店家審核狀態成通過
-		$(document).on("click", ".unconfirm .start", function () {
+		$(document).on("click", ".unconfirm", function () {
+			console.log("ADFADFAFDA")
 			fetch('http://localhost:8081/TGA103G3/AdminSetStore', {
 				method: "post",
 				headers: { 'Content-Type': 'application/json' },
@@ -430,7 +429,7 @@
 					storeAccountStatus: 1
 				})
 			}).then((res) => res.text).then();
-			// window.location.reload();
+			window.location.reload();
 		});
 		// 已上架商家改成停權
 		$(document).on("click", ".stop", function () {
