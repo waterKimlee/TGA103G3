@@ -43,6 +43,9 @@
 										text-shadow: 2px 3px 5px #4d4d4d;
 									}
 
+									body {
+										background-color: rgb(188, 215, 208);
+									}
 
 									#header {
 										height: 100px;
@@ -157,11 +160,11 @@
 							</head>
 
 							<body>
-								<header >
-									<div id="header" class="row" >
-										<img  class="logo" src="./images/logo_navy.png" alt="logo" />
+								<header>
+									<div id="header" class="row">
+										<img class="logo" src="./images/logo_navy.png" alt="logo" />
 
-										<p >管理者頁面</p>
+										<p>管理者頁面</p>
 
 
 										<button id="logout" type="submit" value="登出">登出</button>
@@ -368,8 +371,7 @@
 															<c:if test="${admin.administratorRight == 0 }">
 																<!-- 								使用form的onsubmit ，函式裡回傳true才真的送出，若回傳false則不送出 -->
 																<FORM METHOD="post" onsubmit="return onRemoveClick()"
-																	ACTION="<%=request.getContextPath()%>/admin.do"
-																	style="margin-bottom: 0px;">
+																	ACTION="<%=request.getContextPath()%>/admin.do" style="margin-bottom: 0px;">
 																	<!-- 									<input type="submit" value="刪除" class="deleteBtn"> -->
 																	<button type="submit" class="deleteBtn">刪除</button>
 																	<input type="hidden" name="action" value="delete"> <input type="hidden"
